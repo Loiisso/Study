@@ -77,14 +77,20 @@ class Network(object):
         
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
-        for x, y in mini_batch:
-            delta_nabla_b, delta_nabla_w = self.backprop(x, y)
-            nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
-            nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
-        self.weights = [w-(eta/len(mini_batch))*nw
-                        for w, nw in zip(self.weights, nabla_w)]
-        self.biases = [b-(eta/len(mini_batch))*nb
-                       for b, nb in zip(self.biases, nabla_b)]
+        
+        x_mini_batch_list = [x[0] for x in mini_batch]
+        y_mini_batch_list = [y[1] for y in mini_batch]
+        x_mini_batch = np.vstack(x_mini_batch_list)
+        y_mini_batch = np.vstack(y_mini_batch_list)
+        delta_nabla_b, delta_nabla_w = self.backprop(x, y)
+
+        delta_nabla_b, delta_nabla_w = self.backprop(x, y)
+        #nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
+        #nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
+        #self.weights = [w-(eta/len(mini_batch))*nw
+        #                for w, nw in zip(self.weights, nabla_w)]
+        #self.biases = [b-(eta/len(mini_batch))*nb
+        #              for b, nb in zip(self.biases, nabla_b)]
 
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
@@ -92,8 +98,8 @@ class Network(object):
         ``nabla_w`` are layer-by-layer lists of numpy arrays, similar
         to ``self.biases`` and ``self.weights``."""
         
-        from IPython.core.debugger import Tracer
-        Tracer()() #this one triggers the debugger
+        #from IPython.core.debugger import Tracer
+        #Tracer()() #this one triggers the debugger
         
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
