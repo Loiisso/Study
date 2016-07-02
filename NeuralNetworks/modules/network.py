@@ -92,8 +92,8 @@ class Network(object):
         ``nabla_w`` are layer-by-layer lists of numpy arrays, similar
         to ``self.biases`` and ``self.weights``."""
         
-        from IPython.core.debugger import Tracer
-        Tracer()() #this one triggers the debugger
+        #from IPython.core.debugger import Tracer
+        #Tracer()() #this one triggers the debugger
         
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
