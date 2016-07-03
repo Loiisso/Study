@@ -1,0 +1,1 @@
+This project is about http://neuralnetworksanddeeplearning.com/ textbook
