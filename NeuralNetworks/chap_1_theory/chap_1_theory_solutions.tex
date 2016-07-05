@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Chaper theory 1 solution}
+\date{2016-06-04}
+\author{Artem Puzanov}
+
+
+\begin{document}
+
+\maketitle
+\pagenumbering{gobble}
+\newpage
+\pagenumbering{arabic}
+
+\section{Sigmoid neurons simulating perceptrons}
+\subsection{part I}
+\paragraph{Intuition:} 
+Each neuron has a binary activation function. If we multiply both weights and biases by a positive
+constant the activation value shall not change. If $w_ix_i$ and $b$ have different signs, it's obvious.
+If they are both negative, neuron would show $0$ anyway. If they are both positive, neuron would show
+$1$ anyway.
+\paragraph{Mathematical notation:} 
+Let's define $(a_{jl}$ value of activation function of $i$-th neuron in $l_th$ layer of our network
+and $C$ as the multiplier constant ($C > 0$ )
+\begin{equation*}
+  a_{j} = \sum_{i}w_ix_i + b_j
+\end{equation*}
+
+If $$\sum_{i}w_ix_i + b_j > 0$$ then $$\sum_{i}Cw_ix_i + Cb_j > 0$$ as we can divide the second equation by $C$
+to obtain the first equation. The case when $\sum_{i}w_ix_i + b_j < 0$ and $\sum_{i}w_ix_i + b_j = 0$ are the same.
+As the choice of neuron was non-specific, this holds for all neurons in the network. 
+The statement is proved.
+
+\subsection{part II}
+Every neuron changes, except for the zero one
+
+\end{document}
+
