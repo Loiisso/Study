@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Chapter theory 1 solution</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="chap_1_theory_solutions.tex"> 
+<link rel="stylesheet" type="text/css" href="chap_1_theory_solutions.css"> 
+</head><body 
+>
+   <div class="maketitle">
+
+
+
+<h2 class="titleHead">Chapter theory 1 solution</h2>
+<div class="author" ><span 
+class="cmr-12">Artem Puzanov</span></div><br />
+<div class="date" ><span 
+class="cmr-12">2016-06-04</span></div>
+   </div>
+
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>Sigmoid neurons simulating perceptrons</h3>
+<!--l. 17--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.1   </span> <a 
+ id="x1-20001.1"></a>part I</h4>
+<!--l. 18--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-30001.1"></a><span 
+class="cmbx-10">Intuition:</span></span>
+   Each neuron has a binary activation function. Multiplication of weights and biases
+by a positive constant is identical to multiplying an inequality by a constant. Such a
+multiplication does not change the inequality, therefore all perceptron values shall
+stay the same.
+<!--l. 22--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-40001.1"></a><span 
+class="cmbx-10">Mathematical notation:</span></span>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="cmmi-10">a</span><sub><span 
+class="cmmi-7">j</span></sub><sup><span 
+class="cmmi-7">l</span></sup> - value of activation function of <span 
+class="cmmi-10">j</span>-th neuron in <span 
+class="cmmi-10">l</span>-th layer of our network
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10">C </span>- the multiplier constant
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">ji</span></sub> - weight of connection from <span 
+class="cmmi-10">i</span>-th neuron from the (<span 
+class="cmmi-10">l </span><span 
+class="cmsy-10">- </span>1)-th layer to
+     the <span 
+class="cmmi-10">j</span>-th neuron in the <span 
+class="cmmi-10">l</span>-th layer
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10">b</span><sub><span 
+class="cmmi-7">jl</span></sub> - bias from <span 
+class="cmmi-10">j</span>-th neuron in the <span 
+class="cmmi-10">l</span>-th layer
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">i</span></sub> - output from the <span 
+class="cmmi-10">i</span>-th neuron in the (<span 
+class="cmmi-10">l </span><span 
+class="cmsy-10">- </span>1)-th layer</li></ul>
+<center class="par-math-display" >
+<img 
+src="chap_1_theory_solutions0x.png" alt="    {
+      1 if &#x2211; wjixi + bj &#x003E; 0
+alj =       &#x2211; i
+      0 if   iwjixi + bj &#x2264; 0
+" class="par-math-display" ></center>
+<!--l. 36--><p class="nopar" > For each neuron, we have three possible cases:
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x1-4002x1"><span 
+class="cmex-10">&#x2211;</span>
+       <sub><span 
+class="cmmi-7">i</span></sub><span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">ji</span></sub><span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">i</span></sub> + <span 
+class="cmmi-10">b</span><sub><span 
+class="cmmi-7">j</span></sub> <span 
+class="cmmi-10">&#x003E; </span>0
+     </li>
+     <li 
+  class="enumerate" id="x1-4004x2"><span 
+class="cmex-10">&#x2211;</span>
+       <sub><span 
+class="cmmi-7">i</span></sub><span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">ij</span></sub><span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">i</span></sub> + <span 
+class="cmmi-10">b</span><sub><span 
+class="cmmi-7">j</span></sub> = 0
+     </li>
+     <li 
+  class="enumerate" id="x1-4006x3"><span 
+class="cmex-10">&#x2211;</span>
+       <sub><span 
+class="cmmi-7">i</span></sub><span 
+class="cmmi-10">w</span><sub><span 
+class="cmmi-7">ji</span></sub><span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">i</span></sub> + <span 
+class="cmmi-10">b</span><sub><span 
+class="cmmi-7">j</span></sub> <span 
+class="cmmi-10">&#x003C; </span>0</li></ol>
+
+<!--l. 43--><p class="noindent" >Given <span 
+class="cmmi-10">C &#x003E; </span>0, it&#8217;s easy to see that multiplication by <span 
+class="cmmi-10">C </span>changes none of the conditions
+<!--l. 45--><p class="indent" >   Now, there is a catch: <span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">i</span></sub> is actually <span 
+class="cmmi-10">a</span><sub><span 
+class="cmmi-7">i</span></sub><sup><span 
+class="cmmi-7">l</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sup>. However, as the choice of the <span 
+class="cmmi-10">l </span>was non
+specific, we can apply the same logic for <span 
+class="cmmi-10">a</span><sub><span 
+class="cmmi-7">i</span></sub><sup><span 
+class="cmmi-7">l</span><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">1</span></sup>. By moving backwards through (<span 
+class="cmmi-10">l </span><span 
+class="cmsy-10">- </span>1),
+(<span 
+class="cmmi-10">l </span><span 
+class="cmsy-10">- </span>2), (<span 
+class="cmmi-10">l </span><span 
+class="cmsy-10">- </span>3) and so on, we can see that no <span 
+class="cmmi-10">a </span>is changed. Therefore there are
+no changes in the network activation values, which is what we wanted to
+prove.
+<!--l. 50--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">1.2   </span> <a 
+ id="x1-50001.2"></a>part II</h4>
+<!--l. 51--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-60001.2"></a><span 
+class="cmbx-10">Intuition:</span></span>
+   The activation function of the sigmoid neuron limits either at 0 or at 1 when <span 
+class="cmmi-10">z </span>is
+multiplied by a constant. Limit of the particular neuron depends on whether
+<span 
+class="cmmi-10">wx </span>+ <span 
+class="cmmi-10">b &#x003E; </span>0 or <span 
+class="cmmi-10">wx </span>+ <span 
+class="cmmi-10">b &#x003C; </span>0
+<!--l. 54--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x1-70001.2"></a><span 
+class="cmbx-10">Mathematical notaion</span></span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="chap_1_theory_solutions1x.png" alt="    &#x2211;
+zj =   wixi +bj
+     i
+" class="math-display" ></center></td></tr></table>
+<!--l. 57--><p class="nopar" >
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="chap_1_theory_solutions2x.png" alt="       &#x2211;
+Czj = C   wixi +Cbj
+        i
+" class="math-display" ></center></td></tr></table>
+
+<!--l. 60--><p class="nopar" >
+Let&#8217;s take arbtirary neuron <span 
+class="cmmi-10">a</span><sub><span 
+class="cmmi-7">j</span></sub><sup><span 
+class="cmmi-7">l</span></sup>. For perceptron, if <span 
+class="cmmi-10">z &#x003E; </span>0 (and therefore <span 
+class="cmmi-10">a </span>= 1) than
+<span 
+class="cmmi-10">Cz &#x003E; </span>0 and <span 
+class="cmmi-10">a</span>(<span 
+class="cmmi-10">Cz</span>) = 1. If it&#8217;s a sigmoid neuron, than if
+   <center class="math-display" >
+<img 
+src="chap_1_theory_solutions3x.png" alt="C &#x2192;  &#x221E; " class="math-display" ></center>
+than
+   <center class="math-display" >
+<img 
+src="chap_1_theory_solutions4x.png" alt="1&#x2215;(1+ e-Cz) &#x2192; 1  " class="math-display" ></center> If
+<span 
+class="cmmi-10">z &#x003C; </span>0 (and therefore <span 
+class="cmmi-10">a </span>= 0) than <span 
+class="cmmi-10">Cz &#x003C; </span>0. For sigmoid neuron it&#8217;s
+   <center class="math-display" >
+<img 
+src="chap_1_theory_solutions5x.png" alt="C &#x2192;  &#x221E; " class="math-display" ></center>
+than
+   <center class="math-display" >
+<img 
+src="chap_1_theory_solutions6x.png" alt="1&#x2215;(1+ e-Cz) &#x2192; 0
+" class="math-display" ></center>
+<!--l. 66--><p class="indent" >   Therefore if <span 
+class="cmmi-10">C </span><span 
+class="cmsy-10">&#x2192;&#x221E; </span>than for all <span 
+class="cmmi-10">z &#x003C; </span>0 or <span 
+class="cmmi-10">z &#x003E; </span>0 sigmoid neurons emulate
+perceptrons.
+<!--l. 68--><p class="indent" >   If <span 
+class="cmmi-10">wx </span>+ <span 
+class="cmmi-10">b </span>= 0 than perceptron activation value is 0, and activation value for
+this sigmoid neuron is 1<span 
+class="cmmi-10">&#x2215;</span>(1 + <span 
+class="cmmi-10">e</span><sup><span 
+class="cmr-7">0</span></sup>) = 1<span 
+class="cmmi-10">&#x2215;</span>2, which is different from perceptron
+activation value. Therefore this sigmoid neuron shall not emulate it&#8217;s perceptron
+counterpart
+    
+</body></html> 
+
+
+
