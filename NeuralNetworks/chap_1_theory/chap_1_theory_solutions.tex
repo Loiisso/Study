@@ -17,8 +17,8 @@
 \subsection{part I}
 \paragraph{Intuition:} 
 Each neuron has a binary activation function. Multiplication of weights and biases 
-by a positive constant is identical to multiplying an inequality by a constant. Such a multiplication does not change
-the inequality, therefore all perceptron values shall stay the same.
+by a positive constant is identical to multiplying an inequality by a constant. 
+Such a multiplication does not change the inequality, therefore all perceptron values shall stay the same.
 \paragraph{Mathematical notation:} 
 \begin{itemize}
 \item $a_{j}^l$ - value of activation function of $j$-th neuron in $l$-th layer of our network
@@ -42,8 +42,8 @@ For each neuron, we have three possible cases:
 \end{enumerate}
 Given $C > 0$, it's easy to see that multiplication by $C$ changes none of the conditions
 
-Now, there is a catch: $x_i$ is actually $a_{i}^{l-1}$. However, as the choice of the $l$ was non specific,
-we can apply the same logic for $a_{i}^{l-1}$.
+Now, there is a catch: $x_i$ is actually $a_{i}^{l-1}$. 
+However, as the choice of the $l$ was non specific, we can apply the same logic for $a_{i}^{l-1}$.
 By moving backwards through $(l-1)$, $(l-2)$, $(l-3)$ and so on, we can see that no $a$ is changed. 
 Therefore there are no changes in the network activation values, which is what we wanted to prove.
 
@@ -52,22 +52,52 @@ Therefore there are no changes in the network activation values, which is what w
 The activation function of the sigmoid neuron limits either at 0 or at 1 when $z$
 is multiplied by a constant. Limit of the particular neuron depends on whether $wx + b > 0$ or $wx + b < 0$
 \paragraph{Mathematical notaion} 
+
+\begin{itemize}
+\item $\sigma$ - activation function of sigmoid neuron
+\item $a_{j}^l$ - value of activation function of $j$-th neuron in $l$-th layer of our network
+\item $C$ -  the multiplier constant
+\item $w_{ji}$ - weight of connection from $i$-th neuron from the $(l-1)$-th layer to the $j$-th neuron in the $l$-th layer 
+\item $b_{jl}$ - bias from $j$-th neuron in the $l$-th layer
+\item $x_i$ - output from the $i$-th neuron in the $(l-1)$-th layer
+\end{itemize}
+
 \begin{equation*}
-  z_{j} = \sum_{i}w_ix_i + b_j
+z_{j}^l = \sum_{i}w_{ji}x_i + b_j 
 \end{equation*}
+$z_{j}^l$ here is a value of linear part of the sigmoid activation funciton for $j$-th neuron in the $l$-th layer.
+Multiplication by $C$ gives us:
 \begin{equation*}
-  Cz_{j} = C\sum_{i}w_ix_i + Cb_j
+Cz_{j}^l = C\sum_{i}w_{ji}x_i + Cb_j
 \end{equation*}
-Let's take arbtirary neuron $a_j^l$. For perceptron, if $z > 0$ (and therefore $a = 1$) than $Cz > 0$ and $a(Cz)=1$. 
-If it's a sigmoid neuron, than if $$C \to \infty$$ than $$1/(1 + e^{-Cz}) \to 1$$
-If $z < 0$  (and therefore $a = 0$) than $Cz < 0$. 
-For sigmoid neuron it's $$C \to \infty$$ than $$1/(1 + e^{-Cz}) \to 0$$
+Let's take arbtirary neuron $a_j^l$.
+
+There are three cases:
+\begin{enumerate}
+\item $z_j^l > 0$
+\item $z_j^l < 0$
+\item $z_j^l = 0$
+\end{enumerate}
+
+\paragraph{Case number $1$:}
+For perceptron, if $z > 0$ than $Cz > 0$ and $a = 1$. 
+For sigmoid neuron, if $z > 0$:
+$$\lim_{C \to \infty} \sigma(Cz) = \lim_{C \to \infty} 1/(1 + e^{-Cz}) \to 1$$
+
+\paragraph{Case number $2$:}
+For perceptron, if $z < 0$ than $Cz < 0$ and $a = 0$. 
+For sigmoid neuron, if $z < 0$:
+$$\lim_{C \to \infty} \sigma(Cz) = \lim_{C \to \infty} 1/(1 + e^{-Cz}) \to 0$$
 
 Therefore if $C \to \infty$ than for all $z < 0$ or $z > 0$ sigmoid neurons emulate perceptrons.
+If neural network with sigmoid neurons has no neurons for which $z = 0$ than for $C \to \infty$ it fully emulates perceptron network.
 
-If $wx + b = 0$ than perceptron activation value is $0$, and activation value for this sigmoid neuron is
-$1/(1 + e ^ 0) = 1/2$, which is different from perceptron activation value. Therefore this sigmoid neuron shall not emulate
-it's perceptron counterpart
+\paragraph{Case number $3$:}
+
+If $z = 0$ than $a = 0$.
+For sigmoid neuron if $z = 0$:
+$$\sigma(Cz) = 1/(1 + e^{-Cz}) = 1/(1 + e^0) = 1/2$$
+Values for perceptron and sigmoid neuron differ, therefore sigmoid neurons do not emulate perceptrons
 
 \end{document}
 
