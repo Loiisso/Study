@@ -17,8 +17,8 @@
 \subsection{part I}
 \paragraph{Intuition:} 
 Each neuron has a binary activation function. Multiplication of weights and biases 
-by a positive constant is identical to multiplying an inequality by a constant. Such a multiplication does not change
-the inequality, therefore all perceptron values shall stay the same.
+by a positive constant is identical to multiplying an inequality by a constant. 
+Such a multiplication does not change the inequality, therefore all perceptron values shall stay the same.
 \paragraph{Mathematical notation:} 
 \begin{itemize}
 \item $a_{j}^l$ - value of activation function of $j$-th neuron in $l$-th layer of our network
@@ -42,8 +42,8 @@ For each neuron, we have three possible cases:
 \end{enumerate}
 Given $C > 0$, it's easy to see that multiplication by $C$ changes none of the conditions
 
-Now, there is a catch: $x_i$ is actually $a_{i}^{l-1}$. However, as the choice of the $l$ was non specific,
-we can apply the same logic for $a_{i}^{l-1}$.
+Now, there is a catch: $x_i$ is actually $a_{i}^{l-1}$. 
+However, as the choice of the $l$ was non specific, we can apply the same logic for $a_{i}^{l-1}$.
 By moving backwards through $(l-1)$, $(l-2)$, $(l-3)$ and so on, we can see that no $a$ is changed. 
 Therefore there are no changes in the network activation values, which is what we wanted to prove.
 
@@ -52,22 +52,119 @@ Therefore there are no changes in the network activation values, which is what w
 The activation function of the sigmoid neuron limits either at 0 or at 1 when $z$
 is multiplied by a constant. Limit of the particular neuron depends on whether $wx + b > 0$ or $wx + b < 0$
 \paragraph{Mathematical notaion} 
+
+\begin{itemize}
+\item $\sigma$ - activation function of sigmoid neuron
+\item $a_{j}^l$ - value of activation function of $j$-th neuron in $l$-th layer of our network
+\item $C$ -  the multiplier constant
+\item $w_{ji}$ - weight of connection from $i$-th neuron from the $(l-1)$-th layer to the $j$-th neuron in the $l$-th layer 
+\item $b_{jl}$ - bias from $j$-th neuron in the $l$-th layer
+\item $x_i$ - output from the $i$-th neuron in the $(l-1)$-th layer
+\end{itemize}
+
 \begin{equation*}
-  z_{j} = \sum_{i}w_ix_i + b_j
+z_{j}^l = \sum_{i}w_{ji}x_i + b_j 
 \end{equation*}
+$z_{j}^l$ here is a value of linear part of the sigmoid activation funciton for $j$-th neuron in the $l$-th layer.
+Multiplication by $C$ gives us:
 \begin{equation*}
-  Cz_{j} = C\sum_{i}w_ix_i + Cb_j
+Cz_{j}^l = C\sum_{i}w_{ji}x_i + Cb_j
 \end{equation*}
-Let's take arbtirary neuron $a_j^l$. For perceptron, if $z > 0$ (and therefore $a = 1$) than $Cz > 0$ and $a(Cz)=1$. 
-If it's a sigmoid neuron, than if $$C \to \infty$$ than $$1/(1 + e^{-Cz}) \to 1$$
-If $z < 0$  (and therefore $a = 0$) than $Cz < 0$. 
-For sigmoid neuron it's $$C \to \infty$$ than $$1/(1 + e^{-Cz}) \to 0$$
+Let's take arbtirary neuron $a_j^l$.
+
+There are three cases:
+\begin{enumerate}
+\item $z_j^l > 0$
+\item $z_j^l < 0$
+\item $z_j^l = 0$
+\end{enumerate}
+
+\paragraph{Case number $1$:}
+For perceptron, if $z > 0$ than $Cz > 0$ and $a = 1$. 
+For sigmoid neuron, if $z > 0$:
+$$\lim_{C \to \infty} \sigma(Cz) = \lim_{C \to \infty} 1/(1 + e^{-Cz}) \to 1$$
+
+\paragraph{Case number $2$:}
+For perceptron, if $z < 0$ than $Cz < 0$ and $a = 0$. 
+For sigmoid neuron, if $z < 0$:
+$$\lim_{C \to \infty} \sigma(Cz) = \lim_{C \to \infty} 1/(1 + e^{-Cz}) \to 0$$
 
 Therefore if $C \to \infty$ than for all $z < 0$ or $z > 0$ sigmoid neurons emulate perceptrons.
+If neural network with sigmoid neurons has no neurons for which $z = 0$ than for $C \to \infty$ it fully emulates perceptron network.
 
-If $wx + b = 0$ than perceptron activation value is $0$, and activation value for this sigmoid neuron is
-$1/(1 + e ^ 0) = 1/2$, which is different from perceptron activation value. Therefore this sigmoid neuron shall not emulate
-it's perceptron counterpart
+\paragraph{Case number $3$:}
+
+If $z = 0$ than $a = 0$.
+For sigmoid neuron if $z = 0$:
+$$\sigma(Cz) = 1/(1 + e^{-Cz}) = 1/(1 + e^0) = 1/2$$
+Values for perceptron and sigmoid neuron differ, therefore sigmoid neurons do not emulate perceptrons
+
+\section{Bitwise representation of neural network}
+
+\paragraph{Assumption:}
+It is not clear what is the specific cost function, and whether or not we can choose activation function for the ouput layer as we wish.
+Therefore, we shall make some assumptions
+\begin{itemize}
+\item the output layer activation function is sigmoid
+\item the active neurons in the output layer should have value $\geq 0.99$
+\item the non-active neurons in the output layer should have value $\leq 0.01$
+\end{itemize}
+
+
+\paragraph{Intuition:}
+The main idea is to encode (via weights) output from 10 neurons into 4 neurons. 
+The trick is that our encoding table is essentially our desired weight matrix from $L-1$ layer to $L$ layer.
+
+\paragraph{Mathematical notation:}
+First, let's choose our encoding schema. 
+We need to represent 10 values, with 4 bits.
+Now $C^1_4 + C^2_4 = 10$, so by activating $1$ or $2$ bits, we can exactly encode the required number of states
+Here is the full encoding (mapping) matrix:
+$$M = 
+\begin{pmatrix}
+1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0\\
+0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 1\\
+0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 1
+\end{pmatrix}$$
+First column represents encoding of number $0$, second column represents number $1$ and so on, up to $9$.
+
+The activation values should form a similiar matrix, but for each $0$ there should be a value of $leq 0.01$, and for each $1$ there should be a value of $\geq 0.99$. Let's call this matrix $M$ (mapping).
+
+Now, all possible values of $(L-1)$ - th layer form a diagonal matrix
+$$X = 
+\begin{pmatrix}
+a_{1,1} & a_{1,2} & a_{1,3} & \cdots & a_{1,0}\\
+a_{2,1} & a_{2,2} & a{2,3} & \cdots & a_{2,10}\\
+a_{3,1} & 0.01 & a_{3,3} &\cdots & 0.01\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+a_{10,1} & a_{10,2} & a_{10,3} \cdots & \cdots & \ a_{10,10}
+\end{pmatrix}$$
+
+where $a_{i,i} >= 0.99$ and $a_{i,i \neq j} <= 0.01$
+
+In vector form, our activation equation should be:
+$$M = \sigma(WX + b)$$
+where $b$ is biases vector, $W$ is weights matrix, and $\sigma$ is sigmoid activation function.
+
+It's easy to see that there are two distinct values in the $M$ matrix: weight for active neuron and weight for non-active neuron.
+Let's call active neuron weight $w_{active}^{L-1}$ and non-active neuron weight $w_{non-active}^{L-1}$.
+In the output layer, active neuron activation value shall be:
+$$\sigma(w_{active}^{L-1} * a_{i,i} + 3w_{non-active}^{L-1} * a_{i,i \neq j} + b_j)$$
+non-active neuron activation value shall be:
+$$\sigma(4w_{non-active}^{L-1} * a_{i,i \neq j} + b_j)$$
+
+To guarantee that active neuron activation value is $\geq 0.99$ and non-active neron activation value is $\leq 0.01$, we shall assume that $a_{i,i} = 0.99$ and $a_{i,j \neq i} = 0.01$
+
+Applying that to these equations, we get
+\[
+\begin{cases}
+1/(1 + e^{w_{active}^{L-1} * 0.99 + 3w_{non-active}^{L-1} + b}) >= 0.99\\
+1/(1 + e^{4w_{non-active}^{L-1} + b}) <= 0.01
+\end{cases}
+\]
+Any solution for this system of inqeualities shall be required weights and biases. 
+
 
 \end{document}
 
