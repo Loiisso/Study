@@ -165,6 +165,23 @@ Applying that to these equations, we get
 \]
 Any solution for this system of inqeualities shall be required weights and biases. 
 
+\section{Gradient descent proof}
+\subsection{part I}
+\paragraph{Intuition}
+The logic behind this assertion is simple: we have to move in the (anti)direction of the gradient.
+Moving in the direction of the gradient means that inner product of ${\Delta}\nu$ and ${\nabla}C$.
+What does Cauchy Shwartz has to do with this? 
+Well, it tells us about  upper limit of length of inner product! 
+So all we have to do is choose such a ${\Delta}\nu$, as to achieve upper limit of the inner product.
+\paragraph{Mathematical notation}
+By Cauchy Shwartz theorem:
+$$|{\langle}{\nabla}C,{\Delta}\nu{\rangle}| <= ||{\nabla}C||*||{\Delta}\nu||$$
+Given that $||{\Delta}\nu|| = \epsilon$
+$$|{\langle}{\nabla}C,{\Delta}\nu{\rangle}| <= ||{\nabla}C||*\epsilon$$
+In order to achieve equality we need to make ${\Delta}\nu = {\epsilon}{\nabla}C/||{\nabla}C||$
+Let's not forget that we want to decrease function, not increase it, therefore:
+$${\Delta}\nu = -{\epsilon}{\nabla}C/||{\nabla}C||$$
+That is what we wanted to prove&
 
 \end{document}
 
