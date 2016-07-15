@@ -194,6 +194,14 @@ In geometrical terms, we basically find a line tangential to the current point o
 The larger the smaller the angle (to our function's value), the larger steps we take.
 This essentialy means that we just move against the derivative of our one variable, each step size normilized by $||{\nabla}C||$.
 
+\section{Online learning vs batch learning}
+Online learning has three essential qualities: speed, equentiality, gradient estimation precision
+\begin{enumerate}
+\item speed - for each step of parameter adaptation, only one gradient calculation is made
+\item sequentiality - our particular path/parameters can heavily depend on the order of observations that we feed to the algorithm.
+\item gradient estimation precision - for every gradient step, we base our estimation of gradient on just $1$ observation
+\end{enumerate}
+If I'm to choose one advantage and one disadvatange, I would go for speed as an advantage, and gradient estimation precision as a disadvantage.
 
 \end{document}
 
