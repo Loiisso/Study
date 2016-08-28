@@ -1,8 +1,8 @@
 \documentclass{article}
 \usepackage{amsmath}
 
-\title{Chapter theory 1 solution}
-\date{2016-06-04}
+\title{Chapter theory 2 solution}
+\date{2016-08-27}
 \author{Artem Puzanov}
 
 
@@ -16,6 +16,19 @@
 \section{Matrix representations of main equations}
 \subsection{part I}
 \paragraph{Intuition}
-Hadamard product is just an easy way to use vectors instead of diagonal matrices, not much thinking needed here} 
+Hadamard product is just an easy way to use vectors instead of diagonal matrices, not much thinking needed here )
 \paragraph{Mathematical notation}
-$$Here the matrix equation shall be$$
+To prove this assertion, we must show that 
+$$\delta^L = {\sum}'(z^L)\nabla_aC = \nabla_aC\odot\sigma'(z^L)$$
+Let's call $\delta^L$ for non-Hadamard case $\delta'^L$.
+Or equivalently, we must prove that $$\forall i: \delta^L_i = \delta'^L_i$$,
+where $$\delta^L_i = \sigma'(z_i^L)\frac{\partial C}{\partial a_i}$$
+Let's write $\delta'^L_i$ in index hell notation. 
+A small note: I shall use $I^{\delta}$ as replacement for $\sum$ notation, as I shall user $\sum$ in it's usual arithmetical sum meaning further
+$$\delta'^L_j = {\sum}_{j}I^{\delta}_{ij}\frac{\partial C}{\partial a_j}$$
+By definition, $I^{\delta}_{i\neqj} = 0$, therefore:
+$${\sum}_{j}I^{\delta}_{ij}\frac{\partial C}{\partial a_j} = I^{\delta}_{ii} \frac{\partial C}{\partial a_i}$$
+Replacing $I^{\delta}_{ii}$ with $\sigma'(z_i^L)$ we get 
+$$\delta'^L_i = \sigma'(z_i^L)\frac{\partial C}{\partial a_i}$$
+Which is what we wanted to prove;
+\end{document}
