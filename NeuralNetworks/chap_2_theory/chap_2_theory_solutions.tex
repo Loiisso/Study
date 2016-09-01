@@ -44,19 +44,17 @@ $$\delta^l = {\sum}'(z^l) (w^{l+1})^{T} \delta^{l+1} = (w^{l+1})^{T} \delta^{l+1
 Let's call $\delta^l$ for non-Hadamard case $\delta'^l$.
 
 Or equivalently, we must prove that $$\forall i: \delta^l_i = \delta'^l_i$$,
-where $$\delta^l_i = \sigma'(z_i^l)\frac{\partial C}{\partial a_i}$$
+
+FIX THIS
+where $$\delta^l_i = $$
+FIX THIS
 
 A small note: I shall use $I^{\delta}$ as replacement for $\sum$ notation, as I shall user $\sum$ in it's usual arithmetical sum meaning further:
 
 For non-hadamar case
-$$\delta'^l_i = \sum_k I^{\delta}_{ki} \sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j$$
-This cluster... of indexes means that we take a row of I^{\delta}, and multiply it by dot product of (row  $w^T$) and ($\delta^{l+1}_j$)
-By definition, $I^{\delta}_{i \neq j} = 0$, therefore:
-
-
-
-(STOPPED HERE)
-
+$$\delta'^l_i = \sum_k I^{\delta}_{ik} (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_k$$
+By definition, $I^{\delta}_{i \neq k} = 0$, therefore:
+$$\delta'^l_i = I^{\delta}_{ii} (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
 
 
 
