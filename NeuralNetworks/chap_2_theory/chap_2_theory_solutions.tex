@@ -54,5 +54,30 @@ Replacing $I^{\delta}_{ii}$ with $\sigma'(z_i^l)$ we get
 $$\delta'^l_i = \sigma'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
 q.e.d.
 
+\subsection{part III}
+\paragraph{Intuition}
+Not really sure what to show here. Just insert both statements by induction form L to l.
+
+
+\section{Proof of fundamental equations (3) and (4)}
+\subsection{Intuition}
+As stated in the chapter, these equations are just result of derivative-taking rules.
+Essentialy you have to go $into$ $C$, than $into$ $a$, than into $z$, where $C$ is loss function of value of $\sigma$, $\sigma$ is activation funtion of $z$, and $z$ is function of $w$ and $b$
+\subsection{Mathematical notation}
+The functional form of cost function is $C(\sigma(z(w,b)))$.
+We have to prove that 
+$$\delta^l_i = \frac{\partial C}{\partial b_i}$$
+Using chain rule:
+$$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z_j} \frac{\partial z_j}{\partial b_j}$$
+
+
+
+$$z_j = \sum_jw_ja_j^{l-1} + b_j$$
+$$\frac{\partial z_j}{\partial b_j} = 1$$
+than 
+$$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z_j}$$
+STOPPED HERE
+Now let's remember initial definition of $\delta^l_i = $
+STOPPED HERE
 
 \end{document}
