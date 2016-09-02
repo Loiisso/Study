@@ -24,7 +24,7 @@ Let's call $\delta^L$ for non-Hadamard case $\delta'^L$.
 Or equivalently, we must prove that $$\forall i: \delta^L_i = \delta'^L_i$$,
 where $$\delta^L_i = \sigma'(z_i^L)\frac{\partial C}{\partial a_i}$$
 Let's write $\delta'^L_i$ in index hell notation. 
-A small note: I shall use $I^{\delta}$ as replacement for $\sum$ notation, as I shall user $\sum$ in it's usual arithmetical sum meaning further
+A small note: I shall use $I^{\delta}$ as replacement for $\sum$ notation, as I shall use $\sum$ in it's usual arithmetical sum meaning further.
 $$\delta'^L_j = {\sum}_{j}I^{\delta}_{ij}\frac{\partial C}{\partial a_j}$$
 By definition, $I^{\delta}_{i\neqj} = 0$, therefore:
 $${\sum}_{j}I^{\delta}_{ij}\frac{\partial C}{\partial a_j} = I^{\delta}_{ii} \frac{\partial C}{\partial a_i}$$
@@ -37,26 +37,22 @@ Which is what we wanted to prove;
 Again, nothing hard here. Just prove for any $j$ that result is equivalent to Hadamar project
 \paragraph{Mathematical notation}
 
-
-To prove this assertion, we must show that 
+Let's call $\delta^l$ for non-Hadamard case $\delta'^l$.
+To prove the statement, we must show that 
 $$\delta^l = {\sum}'(z^l) (w^{l+1})^{T} \delta^{l+1} = (w^{l+1})^{T} \delta^{l+1}\odot\sigma'(z^l)$$
 
-Let's call $\delta^l$ for non-Hadamard case $\delta'^l$.
+Or equivalently, we must prove that $$\forall i: \delta^l_i = \delta'^l_i$$, where 
+$$\delta^l_i = \sigma'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
 
-Or equivalently, we must prove that $$\forall i: \delta^l_i = \delta'^l_i$$,
-
-FIX THIS
-where $$\delta^l_i = $$
-FIX THIS
-
-A small note: I shall use $I^{\delta}$ as replacement for $\sum$ notation, as I shall user $\sum$ in it's usual arithmetical sum meaning further:
+A small note: I shall use $I^{\delta}$ as replacement for $\sum$ notation, as I shall use $\sum$ in it's usual arithmetical sum meaning further.
 
 For non-hadamar case
 $$\delta'^l_i = \sum_k I^{\delta}_{ik} (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_k$$
 By definition, $I^{\delta}_{i \neq k} = 0$, therefore:
 $$\delta'^l_i = I^{\delta}_{ii} (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
-
-
+Replacing $I^{\delta}_{ii}$ with $\sigma'(z_i^l)$ we get 
+$$\delta'^l_i = \sigma'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
+q.e.d.
 
 
 \end{document}
