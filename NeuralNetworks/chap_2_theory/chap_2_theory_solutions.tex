@@ -60,13 +60,13 @@ Not really sure what to show here. Just insert both statements by induction form
 
 
 \section{Proof of fundamental equations (3) and (4)}
-\subsection{Intuition}
+\subsection{Intuition, equation 3}
 As stated in the chapter, these equations are just result of derivative-taking rules.
 Essentialy you have to go $into$ $C$, than $into$ $a$, than into $z$, where $C$ is loss function of value of $\sigma$, $\sigma$ is activation funtion of $z$, and $z$ is function of $w$ and $b$
-\subsection{Mathematical notation}
+\subsection{Mathematical notation, equation 3}
 The functional form of cost function is $C(\sigma(z(w,b)))$.
 We have to prove that 
-$$\delta^l_i = \frac{\partial C}{\partial b_i}$$
+$$\frac{\partial C}{\partial b_i} = \delta^l_i$$
 Using chain rule:
 $$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z_j} \frac{\partial z_j}{\partial b_j}$$
 $$z_j = \sum_jw_ja_j^{l-1} + b_j$$
@@ -76,5 +76,29 @@ $$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\
 We can notice that by definition of the chain rule (given that $\sigma$ is a function of $z$):
 $$\frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z^l_j} = \frac{\partial C}{\partial z^l_j}$$
 Which is precisely the definition of $\delta^l_i$ (equation number 29 in the book)
+
+\subsection{Intuition, equation 4}
+We shall use the same trick here, except we have more derivative complexity in $z^l_j$
+\subsection{Mathematical notation, equation 4}
+The functional form of cost function is $C(\sigma(z(w,b)))$.
+We have to prove that 
+$$\frac{\partial C}{\partial w^l_{ij}} = \delta^l_i a^{l-1}_j$$
+Using chain rule:
+$$\frac{\partial C}{\partial w_{ij}} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z_j} \frac{\partial z_j}{\partial w_{ij}}$$
+By (INSERT NUMBER FROM THE BOOK HERE)
+$$z_i = \sum_jw_{ij}a^{l-1}_j + b_i$$
+So
+$$\frac{\partial z_j}{\partial w_{ij}} = a^{l-1}_j$$
+If we put that into our chain rule equation we get:
+$$\frac{\partial C}{\partial w_{ij}} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z_j} a^{l-1}_j$$
+
+We can notice that by definition of the chain rule (given that $\sigma$ is a function of $z$):
+$$\frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z^l_j} = \frac{\partial C}{\partial z^l_j}$$
+Which is precisely the definition of $\delta^l_i$ (equation number 29 in the book)
+Putting that into our previous equations we get:
+$$\frac{\partial C}{\partial w_{ij}} = \delta^l_i a^{l-1}_j$$
+Which is exactly (BP4)
+
+
 
 \end{document}
