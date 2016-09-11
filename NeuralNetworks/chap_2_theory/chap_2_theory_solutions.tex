@@ -72,7 +72,7 @@ $$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\
 $$z_j = \sum_jw_ja_j^{l-1} + b_j$$
 $$\frac{\partial z_j}{\partial b_j} = 1$$
 than 
-$$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z_j}$$
+$$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z^l_j}$$
 We can notice that by definition of the chain rule (given that $\sigma$ is a function of $z$):
 $$\frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial z^l_j} = \frac{\partial C}{\partial z^l_j}$$
 Which is precisely the definition of $\delta^l_i$ (equation number 29 in the book)
