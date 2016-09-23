@@ -99,6 +99,23 @@ Putting that into our previous equations we get:
 $$\frac{\partial C}{\partial w_{ij}} = \delta^l_i a^{l-1}_j$$
 Which is exactly (BP4)
 
+\section{Backpropagation algorithm adaptation}
+\subsection{Intuition, custom activation function}
+Every neuron is pretty lonely and isolated (too primitive to understand that though), so we just have to replace his personal derivatives, he won't notice.
+\subsection{Mathematical notation, custom activation function}
+Let's start with BP1 for arbitrary neuron $i$:
+$$\delta^l_i = \frac{\partial C}{\partial \sigma_j} \sigma'(z^l_i)$$
+where $\sigma$ is an activation function. Replacing that with arbitrarty $f$ gives us
+$$\delta^l_i = \frac{\partial C}{\partial f_i} f'(z^l_i)$$
+Now for BP2:
+$$\delta^l_i = \sigma'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
+again, we can replace that with arbitrary $f$:
+$$\delta^l_i = f'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
+
+Those two were easy. Now for interesting cases:
+
+
+
 
 
 \end{document}
