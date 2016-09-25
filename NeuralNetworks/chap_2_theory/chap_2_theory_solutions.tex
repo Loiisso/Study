@@ -119,6 +119,13 @@ The second one is just $\frac{\partial f_j}{\partial b_j}$. We don't need to use
 Replacing both multipliers we get:
 $$\frac{\partial C}{\partial b_j} = \delta_j' \frac{\partial f_j}{\partial b_j}$$
 
+Now let's go for BP4:
+$$\frac{\partial C}{\partial w_{ij}} = \delta_i a^{l-1}_{j}$$
+Let's rewrite it using chain rule
+$$\frac{\partial C}{\partial w_{ij}} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial w_{ij}}$$
+Using $\delta_j'$ replacement from BP3 solution, and replacing \sigma with $f$ in the second mulitplier:
+$$\frac{\partial C}{\partial w_{ij}} = \delta_j' frac{\partial \f_j}{\partial w_{ij}}$$
+
 
 
 
