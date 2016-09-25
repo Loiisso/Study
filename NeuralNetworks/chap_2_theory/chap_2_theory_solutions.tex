@@ -112,8 +112,12 @@ $$\delta^l_i = \sigma'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
 again, we can replace that with arbitrary $f$:
 $$\delta^l_i = f'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
 
-Those two were easy. Now for interesting cases:
-
+Those two were easy. Now for interesting cases. Let's try $BP3$ first. By applying chain rule
+$$\frac{\partial C}{\partial b_j} = \frac{\partial C}{\partial \sigma_j} \frac{\partial \sigma_j}{\partial b_j}$$
+The first multiplier is easy - it's either result of modified BP1 or modified BP2. We'll call it $\delta_j'$.
+The second one is just $\frac{\partial f_j}{\partial b_j}$. We don't need to use chain rule further, as $b_j$ is a constant.
+Replacing both multipliers we get:
+$$\frac{\partial C}{\partial b_j} = \delta_j' \frac{\partial f_j}{\partial b_j}$$
 
 
 
