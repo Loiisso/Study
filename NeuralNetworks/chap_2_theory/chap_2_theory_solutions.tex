@@ -128,9 +128,21 @@ $$\frac{\partial C}{\partial w_{ij}} = \delta_j' \frac{\partial f_j}{\partial w_
 We can further expand this eqation by applying chain rule to $\frac{\partial f_j}{\partial w_{ij}}$:
 $$\frac{\partial C}{\partial w_{ij}} = \delta_j' \frac{\partial f_j}{\partial z_{ij}} a^{l-1}_{j}$$
 
+This concludes equations for arbitrary $f$ instead of $\sigma$ activation function
 
+\subsection{Intuition, linear activation function}
+We can use our previous exercise result to specify BP 1-4 for linear case, by substitution of linear $f(z)$ for arbitrary $f(z)$.
+\subsection{Mathematical notation, linear activation function}
+In all our eqautions we simply substitue $f'(z^l_i) = 1$:
 
-
-
+BP1:
+$$\delta^l_i = \frac{\partial C}{\partial f_i} f'(z^l_i) = \frac{\partial C}{\partial f_i}  1$$
+BP2:
+$$\delta^l_i = f'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i = 1  (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
+BP3:
+$$\frac{\partial C}{\partial b_j} = \delta_j' \frac{\partial f_j}{\partial b_j} = \delta_j'  1$$
+BP4:
+$$\frac{\partial C}{\partial w_{ij}} = \delta_j'  1  a^{l-1}_{j}$$
+This concludes modification of backpropagation equations
 
 \end{document}
