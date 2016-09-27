@@ -135,12 +135,10 @@ We can use our previous exercise result to specify BP 1-4 for linear case, by su
 \subsection{Mathematical notation, linear activation function}
 In all our eqautions we simply substitue $f'(z^l_i) = 1$:
 
-CHECK INDEXES! ${ij}$ THING IS LIKELY VERY VERY WRONG
-
 BP1:
 $$\delta^l_i = \frac{\partial C}{\partial f_i} f'(z^l_i) = \frac{\partial C}{\partial f_i}  1$$
 BP2:
-$$\delta^l_i = f'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i = 1  (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i$$
+$$\delta^l_i = f'(z_i^l) (\sum_j(w^{l+1})^T_{ij} \delta^{l+1}_j)_i = 1  (\sum_j(w^{l+1})^T_{ji} \delta^{l+1}_j)_i$$
 BP3:
 $$\frac{\partial C}{\partial b_j} = \delta_j' \frac{\partial f_j}{\partial b_j} = \delta_j'  1$$
 BP4:
