@@ -21,11 +21,11 @@ We want to prove that:
 $$\sigma'(z) = \sigma(z)(1 - \sigma(z))$$
 where $\sigma(z) = \frac{1}{1+e^{-z}}$
 This is a rather simple derivation, using chain rule:
-$$\sigma'(z) = -e^{-z} -\frac{-e^{-z}}{(1 + e^{-z})^2}$$
-Going for common denominator:
-$$\sigma'(z) = - \frac{e^{-z}(1 + e^{-z})^2 + e^{-z}}{(1+e^{-z})^2}$$
-Now, take $\sigma(z)$:
-$$\sigma'(z) = - \frac{1}{1+e^{-z}}\frac{e^{-z}(1 + e^{-z})^2 + e^{-z}}{(1+e^{-z})}$$
-And let's solve the second half:
-$$\sigma'(z) = - \frac{1}{1+e^{-z}}\frac{e^{-z}(1 + 2e^{-z} + e^{-2z}) + e^{-z}}{(1+e^{-z})}$$
+$$\sigma'(z) = \frac{e^{-z}}{(1 + e^{-z})^2}$$
+Let's take out $\sigma(z)$
+$$\sigma'(z) = \frac{1}{(1 + e^{-z})}\frac{e^{-z}}{1+e^{-z}}$$
+$$\sigma'(z) = \sigma(z)\frac{e^{-z} + 1 - 1}{1+e^{-z}}$$
+$$\sigma'(z) = \sigma(z)(1 - \frac{1}{1+e^{-z}})$$
+$$\sigma'(z) = \sigma(z)(1 - \sigma(z))$$
+Q.E.D.
 \end{document}
