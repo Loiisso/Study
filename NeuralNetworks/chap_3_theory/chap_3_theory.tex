@@ -28,4 +28,18 @@ $$\sigma'(z) = \sigma(z)\frac{e^{-z} + 1 - 1}{1+e^{-z}}$$
 $$\sigma'(z) = \sigma(z)(1 - \frac{1}{1+e^{-z}})$$
 $$\sigma'(z) = \sigma(z)(1 - \sigma(z))$$
 Q.E.D.
+
+\section{entropy function exercies}
+\subsection{entropy form memorization}
+\paragraph{Intuition}
+It's easy to remember specific form, if you follow two rules: it's symmetrical, and logariphm is not defined at zero.
+Symmetricity gives: $xln(y) + (1-x)ln(1-y)$, and whether $x$ or $y$ is $a$ or $y$ is easy to decide, if we remember that
+true value can take values in $[0,1]$ interval, and activation can't reach $0$ or $1$. 
+This means that only activation value can be under $ln$.
+No mathematical proof needed here.
+\subsection{proof of entropy minimization for regression-like problems}
+\paragraph{Intuition}
+Nothing especially hard here, usual function-minimization proof. 
+Take the first derivative, solve it relative to zero, show that this is minimizing solution.
+\paragraph{Mathematical notation}
 \end{document}
