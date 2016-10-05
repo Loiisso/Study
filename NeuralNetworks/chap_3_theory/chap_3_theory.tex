@@ -42,4 +42,14 @@ No mathematical proof needed here.
 Nothing especially hard here, usual function-minimization proof. 
 Take the first derivative, solve it relative to zero, show that this is minimizing solution.
 \paragraph{Mathematical notation}
+First let's show that $y = a$ is a solution for:
+ $$\frac{\partial C}{\partial a} = 0$$
+ $$\frac{\partial C}{\partial a} = -\frac{1}{n}\sum(\frac{y}{a} - \frac{1-y}{1-a}) = 0$$
+Let's drop $-\frac{1}{n}$, and concetrate on the expression under sum:
+ $$\frac{y}{a} - \frac{1-y}{1-a} = 0$$
+ $$\frac{y}{a} = \frac{1-y}{1-a}$$
+ $$y(1-a) = (1-y)a$$
+$$a = y$$
+As neurons in the final layer are not intersecting, this holds true for all $j$
+
 \end{document}
