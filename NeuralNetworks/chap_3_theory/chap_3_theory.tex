@@ -51,6 +51,16 @@ Let's drop $-\frac{1}{n}$, and concetrate on the expression under sum:
  $$y(1-a) = (1-y)a$$
 $$a = y$$
 As neurons in the final layer are not intersecting, this holds true for all $j$
-ADD MINIMUM PROOF CONDITIONS
+Now let's show that the $\frac{\partial^2 C}{\partial^2 a} > 0$ for $y = a$, to prove that we have found minimum:
+$$\frac{\partial^2 C}{\partial^2 a} = -\frac{1}{n}\sum(-\frac{y}{a^2} - \frac{1-y}{(1-a)^2})$$
+$$-\frac{1}{n}\sum(-\frac{y}{a^2} - \frac{1-y}{(1-a)^2}) > 0$$
+substitue $y = a$
+$$-\frac{1}{n}\sum(-\frac{y}{y^2} - \frac{1-y}{(1-y)^2}) > 0$$
+$$-\frac{1}{n}\sum(-\frac{1}{y} - \frac{1}{1-y}) > 0$$
+$$\frac{1}{n}\sum(\frac{1}{y} + \frac{1}{1-y}) > 0$$
+Given condition $ 0 <= y <= 1$, it's prettry obvious this inequality holds.
+So we have shown that $y = a$ is an extreme value, and that second derivative is larger than zero.
+This is sufficient to say that $y = a$ is a minimum. 
+Q.E.D.
 
 \end{document}
