@@ -66,7 +66,7 @@ Q.E.D.
 \section{Learning saturation problems}
 \subsection{Saturation for quadratic cost function and sigmoid neurons}
 \paragraph{Intuition}
-Nothing interesting here, just direct derivation
+Nothing interesting here, just direct derivation using chain rules
 \paragraph{Mathematical notation}
 we want to show that:
 $$\frac{\partial C}{\partial w^L_{jk}} = \frac{1}{n} \sum_x a^{L-1}_k  (a^L_j-y_j) \sigma'(z^L_j)$$
@@ -77,5 +77,7 @@ $$ \frac{\partial C}{\partial w^L_{jk}} = \frac{1}{n} \sum_x (y_j - a^L_j) \sigm
 $$ \frac{\partial C}{\partial w^L_{jk}} = \frac{1}{n} \sum_x (y_j - a^L_j) \sigma'(z^L_j) a^{L-1}_{k}$$
 Note that we can nullify all other $j$ only if there is no $w^L_{jk}$ in other neurons, which is our case here.
 That wasn't hard, was it?)
+
+\subsection{Error derivation for cross-entropy}
 
 \end{document}
