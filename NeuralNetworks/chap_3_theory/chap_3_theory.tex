@@ -78,6 +78,18 @@ $$ \frac{\partial C}{\partial w^L_{jk}} = \frac{1}{n} \sum_x (y_j - a^L_j) \sigm
 Note that we can nullify all other $j$ only if there is no $w^L_{jk}$ in other neurons, which is our case here.
 That wasn't hard, was it?)
 
-\subsection{Error derivation for cross-entropy}
+
+\subsection{Show error for cross entrope}
+\paragraph{Intuition}
+Our only hope (Obi-wan Kenobi), is that $ln$-s shall produce smth to cancel the activation value denominator
+\paragraph{Mathematical notation}
+Here is our cost function:
+$$C = -\frac{1}{n} \sum_x \sum_j y_j \ln a^L_j + (1-y_j) \ln (1-a^L_j)$$
+Let's take our derivative:
+$$\frac{\partial C}{\partial z_j} = -\frac{1}{n} \sum_x \frac{y_j}{a^L_j} \frac{\partial a^L_j}{\partial z}- \frac{1-y_j}{1-a^L_j} \frac{\partial a^L_j}{\partial z}$$
+Now let's remember that $\sigma'(z) = \sigma(z)(1 - \sigma(z))$, and substitue it:
+$$\frac{\partial C}{\partial z_j} = -\frac{1}{n} \sum_x \frac{y_j}{a^L_j} a^L_j(1 - a^L_j) - \frac{1-y_j}{1-a^L_j} a^L_j(1 - a^L_j)$$
+$$\frac{\partial C}{\partial z_j} = -\frac{1}{n} \sum_x y_j(1 - a^L_j) - (1-y_j)a^L_j$$
+$$\frac{\partial C}{\partial z_j} = \frac{1}{n} \sum_x a^L_j - y_j$$
 
 \end{document}
