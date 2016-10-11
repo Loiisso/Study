@@ -79,7 +79,7 @@ Note that we can nullify all other $j$ only if there is no $w^L_{jk}$ in other n
 That wasn't hard, was it?)
 
 
-\subsection{Show error for cross entrope}
+\subsection{Show error for cross entropy}
 \paragraph{Intuition}
 Our only hope (Obi-wan Kenobi), is that $ln$-s shall produce smth to cancel the activation value denominator
 \paragraph{Mathematical notation}
@@ -91,5 +91,18 @@ Now let's remember that $\sigma'(z) = \sigma(z)(1 - \sigma(z))$, and substitue i
 $$\frac{\partial C}{\partial z_j} = -\frac{1}{n} \sum_x \frac{y_j}{a^L_j} a^L_j(1 - a^L_j) - \frac{1-y_j}{1-a^L_j} a^L_j(1 - a^L_j)$$
 $$\frac{\partial C}{\partial z_j} = -\frac{1}{n} \sum_x y_j(1 - a^L_j) - (1-y_j)a^L_j$$
 $$\frac{\partial C}{\partial z_j} = \frac{1}{n} \sum_x a^L_j - y_j$$
+
+\subsection{Show weight derivative for cross entropy}
+\paragraph{Intuition}
+A usual derivative, just don't forget the $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ trick.
+\paragraph{Mathematical notation}
+Let's take our previous derivative, but remember that there is now $\frac{\partial z}{\partial w_{jk}}$ new link in a chain:
+$$\frac{\partial C}{\partial w_{jk}} = -\frac{1}{n} \sum_x \frac{y_j}{a^L_j} \frac{\partial a^L_j}{\partial z} \frac{\partial z}{\partial w_{jk}} - \frac{1-y_j}{1-a^L_j} \frac{\partial a^L_j}{\partial z} \frac{\partial z}{\partial w_{jk}}$$
+Using $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ trick we get:
+$$\frac{\partial C}{\partial w_{jk}} = -\frac{1}{n} \sum_x y_j(1 - a^L_j) \frac{\partial z}{\partial w_{jk}} - (1-y_j)a^L_j \frac{\partial z}{\partial w_{jk}}$$
+$$\frac{\partial C}{\partial w_{jk}} = \frac{1}{n} \sum_x (a^L_j - y_j) \frac{\partial z}{\partial w_{jk}}$$
+As $z_j = \sum_k w_{jk} a^{L-1}_k + b_j$, $\frac{\partial z}{\partial w_{jk}} = a^{L-1}_{k}$:
+$$\frac{\partial C}{\partial w_{jk}} = \frac{1}{n} \sum_x (a^L_j - y_j) a^{L-1}_{k}$$
+Q.E.D.
 
 \end{document}
