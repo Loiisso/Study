@@ -129,8 +129,10 @@ Q.E.D.
 \subsection{Discussion on exclusion of $x_j$ (previous neuron value) from parameter derivaties}
 \paragraph{Intuition}
 The problem of $x_j$ exclusion (or $a^{l-1}$ for layer $a^l$) is equivalent to the question:
-Can we use previous layer in our current layer, in such a way as to not see previous layer in the cost derivatives?
-The answer seems to be \'unlikely\', as you can't both train network, and not use changes in previous layers
+Can we train a network when neuron in the next layer either doesn't depend on the previous layer, or depends on it in such a way that
+$\frac{\partial C}{\partial w_{jk}}$ has no dependecy on the previous layer? 
+
+The answer is we indeed can, but that would require changing activation function to have either no, or some form of constant, usage of previous layer. The network shall therefore adapt by changing constants. The backpropagation shall aslo update only constant(s) - essentially neurons shall be trained to react by a constant. It shall still be capabale of reacting differently to different inputs, but weights of those inputs shall stay the same forever.
 
 
 \end{document}
