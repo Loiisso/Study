@@ -110,6 +110,21 @@ Q.E.D.
 A note: for $\frac{\partial C}{\partial b_{j}}$ the process is the same
 
 \subsection{Quadratic cost and linear neurons in output}
+Now our cost function for one example is $C = \frac{(y-a^L)^2}{2}$
+\paragraph{Intuition}
+Nothing interesting here, except a note that we are talking about ouput layer, so learning slowdown may occur for hidden layers.
+\paragraph{Mathematical notation}
+Error for quaratic fucntion, given that $a^L = z^L$
+$$C = \frac{(y-a^L)^2}{2}$$
+$$ \frac{\partial C}{\partial z} = \delta_L = y - a^L$$
+Derivative for weights:
+$$ \frac{\partial C}{\partial w_{jk}} = \frac{1}{n} \sum_x \frac{\partial C}{\partial z_j} \frac{\partial z_j}{\partial w_{jk}}$$
+using our previous result for $ \frac{\partial C}{\partial z}$, and taking derivative from $z_j$
+$$ \frac{\partial C}{\partial w_{jk}} = \frac{1}{n} \sum_x (y_j - a^L_j) a^{L-1}_k$$
+Derivative for biases:
+$$ \frac{\partial C}{\partial b_{j}} = \frac{1}{n} \sum_x \frac{\partial C}{\partial z_j} \frac{\partial z_j}{\partial b_{j}}$$
+$$ \frac{\partial C}{\partial w_{jk}} = \frac{1}{n} \sum_x (y_j - a^L_j)$$
+Q.E.D.
 
 
 \end{document}
