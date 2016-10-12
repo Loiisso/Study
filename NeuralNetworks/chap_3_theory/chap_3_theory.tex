@@ -126,5 +126,11 @@ $$ \frac{\partial C}{\partial b_{j}} = \frac{1}{n} \sum_x \frac{\partial C}{\par
 $$ \frac{\partial C}{\partial w_{jk}} = \frac{1}{n} \sum_x (y_j - a^L_j)$$
 Q.E.D.
 
+\subsection{Discussion on exclusion of $x_j$ (previous neuron value) from parameter derivaties}
+\paragraph{Intuition}
+The problem of $x_j$ exclusion (or $a^{l-1}$ for layer $a^l$) is equivalent to the question:
+Can we use previous layer in our current layer, in such a way as to not see previous layer in the cost derivatives?
+The answer seems to be \'unlikely\', as you can't both train network, and not use changes in previous layers
+
 
 \end{document}
