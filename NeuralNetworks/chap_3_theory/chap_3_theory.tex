@@ -170,6 +170,7 @@ Q.E.D.
 
 \subsection{Inverting the softmax layer}
 \paragraph{Intuition}
+Nothing interesting here.
 \paragraph{Mathematical notaion}
 $$a^L_j = \frac{e^{z^L_j}}{\sum_{k} e^{z^L_k}}$$
 $$ln(a^L_j) = ln(e^{z^L_j}) - ln(\sum_{k}e^{z^L_k})$$
@@ -177,6 +178,23 @@ $$ln(a^L_j) = z^L_j - ln(\sum_{k}e^{z^L_k})$$
 As we can see, $ln(\sum_{k}e^{z^L_k})$ is the same for all neurons, so we can replace it with $C$.
 $$z^L_j = ln(a^L_j) + C$$
 Q.E.D.
+
+\subsection{Differentiation of parameters for Loglikelihood}
+\paragraph{Intuition}
+Again, nothing particulary interesting
+\paragraph{Mathematical notation}
+$$C \equiv - ln(a^L_y)$$
+Let's strart with weight $w_{jk}$
+$$\frac{\partial C}{\partial w^L_{jk}} = - \frac{\partial C}{\partial a^L_{j}} \frac{\partial a^L_{j}}{\partial z^L_j}\frac{\partial z^L_j}{w_{jk}}$$
+From the previous exercise we know $\frac{\partial a^L_j}{\partial z^L_j}$, so let's substitute it (along with other stuff):
+$$\frac{\partial C}{\partial w^L_{jk}} = - \frac{1}{a^L_j}  \frac{e^{z^L_j} \sum_{k \neq j} e^{z^L_k}}{(\sum_{k} e^{z^L_k})^2}  a^{L-1}_k$$
+$$\frac{\partial C}{\partial w^L_{jk}} = - 1 \frac{\sum_{k \neq j} e^{z^L_k} + e^{z^L_j} - e^{z^L_j}}{ (\sum_{k} e^{z^L_k}) }  a^{L-1}_k$$
+$$\frac{\partial C}{\partial w^L_{jk}} = - 1(1 - \frac{e^{z^L_j}}{ \sum_{k} e^{z^L_k}}) a^{L-1}_k$$
+That fraction is acutally activation for $j$
+$$\frac{\partial C}{\partial w^L_{jk}} = (a^{L-1}_j - 1) a^{L-1}_k$$.
+(Strange stuff here, recheck:)
+for $j$, $y_j = 1$, so we can substitue that to get:
+$$\frac{\partial C}{\partial w^L_{jk}} = (a^{L-1}_j - y_j) a^{L-1}_k$$.
 
 
 
