@@ -131,8 +131,53 @@ Q.E.D.
 The problem of $x_j$ exclusion (or $a^{l-1}$ for layer $a^l$) is equivalent to the question:
 Can we train a network when neuron in the next layer either doesn't depend on the previous layer, or depends on it in such a way that
 $\frac{\partial C}{\partial w_{jk}}$ has no dependecy on the previous layer? 
+The answer is: we can, but there shall be no weigths parameter, only $b_j$. 
+The explanation is that to have no dependency on $x_j$, it must enter the activation funtion in a way that $\frac{\partial C}{\partial w_{jk}}$ should give it as a constant in some form. In order for it to be a constant, it has to be separated from the $w_{jk}$ in the activation. Without it, weigths are just an array of constants, so we can group them into one consant, hence $b_j$. 
+A note: such a network can still be trained! - backprogation equations still make sense here. It's just the parameters for optimization shall include only constants on neurons. It shall still be capable of reacting to different inputs differently, but each neuron shall not have the option of reweighting each previous neuron individually.
 
-The answer is we indeed can, but that would require changing activation function to have either no, or some form of constant, usage of previous layer. The network shall therefore adapt by changing constants. The backpropagation shall aslo update only constant(s) - essentially neurons shall be trained to react by a constant. It shall still be capabale of reacting differently to different inputs, but weights of those inputs shall stay the same forever.
+No mathematical notation here, maybe later.
+
+\section{Softmax}
+
+\subsection{Example of not $1$ sum for usual network}
+\paragraph{Intuition}
+Proving such statement requires no math whatsoever - there is literally nothing stopping us from assigning
+weights and biases in any way we like, in any neural network. The better question is this:
+Can a network to some sensible task generate an output layer, where activation valus shall not sum up to $1$?
+The answer is again yes: let's rememeber binary encoding for numbers classification - each of the correct answers was
+either one or two neurons activated. For the numbers that were encoded by two activated bits, the trained network would ouput 
+sum of ouput neurons larger than 1.
+
+Again, no need for mathematical notation here.
+
+\subsection{Monothonity of softmax}
+\paragraph{Intuition}
+Increase in numerator is in terms of percents always larger than increase in denominator for each positive $\delta z_j$.
+So first derivatve should be positive. 
+$z_{k, k \neq j}$ exists only in denomiator, so it's increase should lead directly to decrease of $a$
+\paragraph{Mathematical notation}
+$$a^L_j = \frac{e^{z^L_j}}{\sum_{k} e^{z^L_k}}$$
+First let's work on differenttation by $z^L_j$.
+Using differentiation rules for fractions:
+$$\frac{\partial a^L_j}{\partial z^L_j} = \frac{e^{z^L_j} \sum_{k} e^{z^L_k} - e^{z^L_j} e^{z^L_j}}{(\sum_{k} e^{z^L_k})^2}$$
+$$\frac{\partial a^L_j}{\partial z^L_j} = \frac{e^{z^L_j} \sum_{k} e^{z^L_k} - e^{z^L_j} e^{z^L_j}}{(\sum_{k} e^{z^L_k})^2}$$
+$$\frac{\partial a^L_j}{\partial z^L_j} = \frac{e^{z^L_j} \sum_{k \neq j} e^{z^L_k}}{(\sum_{k} e^{z^L_k})^2}$$
+Exponent is always positive, so $\frac{\partial a^L_j}{\partial z^L_j} > 0$
+Now let's work on differenttation by $z^L_k$:
+$$\frac{\partial a^L_j}{\partial z^L_k} = -\frac{e^{z^L_k} e^{z^L_j}}{(\sum_{k} e^{z^L_k})^2}$$
+The denominator is positive, the numerator is positive, so the whole thingy is negative
+Q.E.D.
+
+\subsection{Inverting the softmax layer}
+\paragraph{Intuition}
+\paragraph{Mathematical notaion}
+$$a^L_j = \frac{e^{z^L_j}}{\sum_{k} e^{z^L_k}}$$
+$$ln(a^L_j) = ln(e^{z^L_j}) - ln(\sum_{k}e^{z^L_k})$$
+$$ln(a^L_j) = z^L_j - ln(\sum_{k}e^{z^L_k})$$
+As we can see, $ln(\sum_{k}e^{z^L_k})$ is the same for all neurons, so we can replace it with $C$.
+$$z^L_j = ln(a^L_j) + C$$
+Q.E.D.
+
 
 
 \end{document}
