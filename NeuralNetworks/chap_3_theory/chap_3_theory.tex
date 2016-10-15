@@ -203,4 +203,22 @@ $$\frac{\partial C}{\partial b^L_{j}} = a^{L}_j - y_j$$.
 
 Q.E.D.
 
+\subsection{Softmax origination and naming reasons}
+\paragraph{Intuition}
+About probability distribution: we have to show that for every event probability/density is non-negative,
+and that probabilities of all possible events sum up to 1.
+
+About limiting value of activations: as we have the same value in the numerator and as part of the denomiator,
+it's pretty easy to see that this fraction is strictly non-negative, and can never be larger than 1.
+
+The behavior of function for differnt $c$ is not obivous, so we will have to check differentiantions.
+
+\paragraph{Mathematical notation}
+Let's show that all activations sum up to $1$. We can take equation (79) for the texbook itself, and add $c$ to it:
+$$\sum_j a^L_j  =  \frac{\sum_j e^{C z^L_j}}{\sum_k e^{C z^L_k}} = 1$$
+Non negativity follows directly from usage of $e$, as it is alwasys non-negative.
+These two conditions are sufficient (not very strict sense though) to use this \'flexible\' softmax as a distribution function.
+
+
+
 \end{document}
