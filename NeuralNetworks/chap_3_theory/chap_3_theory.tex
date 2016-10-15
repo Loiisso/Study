@@ -181,7 +181,7 @@ Q.E.D.
 
 \subsection{Differentiation of parameters for Loglikelihood}
 \paragraph{Intuition}
-Again, nothing particulary interesting
+Again, nothing particulary interesting, except a way to include $y_j = 1$, but that works out rather naturally.
 \paragraph{Mathematical notation}
 $$C \equiv - ln(a^L_y)$$
 Let's strart with weight $w_{jk}$
@@ -191,11 +191,16 @@ $$\frac{\partial C}{\partial w^L_{jk}} = - \frac{1}{a^L_j}  \frac{e^{z^L_j} \sum
 $$\frac{\partial C}{\partial w^L_{jk}} = - 1 \frac{\sum_{k \neq j} e^{z^L_k} + e^{z^L_j} - e^{z^L_j}}{ (\sum_{k} e^{z^L_k}) }  a^{L-1}_k$$
 $$\frac{\partial C}{\partial w^L_{jk}} = - 1(1 - \frac{e^{z^L_j}}{ \sum_{k} e^{z^L_k}}) a^{L-1}_k$$
 That fraction is acutally activation for $j$
-$$\frac{\partial C}{\partial w^L_{jk}} = (a^{L-1}_j - 1) a^{L-1}_k$$.
+$$\frac{\partial C}{\partial w^L_{jk}} = (a^{L}_j - 1) a^{L-1}_k$$.
 (Strange stuff here, recheck:)
 for $j$, $y_j = 1$, so we can substitue that to get:
-$$\frac{\partial C}{\partial w^L_{jk}} = (a^{L-1}_j - y_j) a^{L-1}_k$$.
+$$\frac{\partial C}{\partial w^L_{jk}} = (a^{L}_j - y_j) a^{L-1}_k$$.
 
+For $b_j$:
+$$\frac{\partial C}{\partial b^L_{j}} = - \frac{\partial C}{\partial a^L_{j}} \frac{\partial a^L_{j}}{\partial z^L_j}\frac{\partial z^L_j}{b_{j}}$$
+The solution is the same as for $w_{jk}$, except that $\frac{\partial z^L_j}{\partial b^L_{j}} = 1$, so there is no $a^{L-1}_k$ part.
+$$\frac{\partial C}{\partial b^L_{j}} = a^{L}_j - y_j$$.
 
+Q.E.D.
 
 \end{document}
