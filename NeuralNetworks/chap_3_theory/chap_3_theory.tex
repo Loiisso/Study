@@ -215,10 +215,19 @@ The behavior of function for differnt $c$ is not obivous, so we will have to che
 
 \paragraph{Mathematical notation}
 Let's show that all activations sum up to $1$. We can take equation (79) for the texbook itself, and add $c$ to it:
-$$\sum_j a^L_j  =  \frac{\sum_j e^{C z^L_j}}{\sum_k e^{C z^L_k}} = 1$$
+$$\sum_j a^L_j  = \sum_j \frac{ e^{C z^L_j}}{\sum_k e^{C z^L_k}} = 1$$
 Non negativity follows directly from usage of $e$, as it is alwasys non-negative.
 These two conditions are sufficient (not very strict sense though) to use this \'flexible\' softmax as a distribution function.
 
-
+Let's differentiate softmax by $c$:
+$$a^L_j = \frac{e^{cz^L_j}}{\sum_{k} e^{cz^L_k}}$$
+$$\frac {\partial a^L_j}{\partial c} = \frac {z^L_j e^{cz^L_j} \sum_k e^{cz^L_k} - e^{cz^L_j} \sum_k z^L_k e^{cz^L_k}}{(\sum_{k} e^{cz^L_k})^2}$$
+$$\frac {\partial a^L_j}{\partial c} = e^{cz^L_j} \frac {z^L_j \sum_k e^{cz^L_k} - \sum_k z^L_k e^{cz^L_k}}{(\sum_{k} e^{cz^L_k})^2}$$
+$$\frac {\partial a^L_j}{\partial c} = e^{cz^L_j} \frac {\sum_k (z^L_j - z^L_k) e^{cz^L_k}}{(\sum_{k} e^{cz^L_k})^2}$$
+Two facts are very easy to see now:
+$$\forall_k z_j^L > z_k^L: \frac {\partial a^L_j}{\partial c} > 0$$
+$$\forall_k z_j^L < z_k^L: \frac {\partial a^L_j}{\partial c} < 0$$
+So, if our neuron is stronger than all others, $c$ makes it (relatively) more powerful, and if it is weaker, $c$ makes it even weaker.
+In terms of function form, this means that the larger $c$ the steeper is shift from $0$ to $1$ as $z_j$ increases.
 
 \end{document}
