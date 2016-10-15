@@ -213,6 +213,8 @@ it's pretty easy to see that this fraction is strictly non-negative, and can nev
 
 The behavior of function for differnt $c$ is not obivous, so we will have to check differentiantions.
 
+Derivation of $\frac{\partial C}{\partial z_j}$ is straighforward, we kinda did before actually, for $b_j$ and $w_j$.
+
 \paragraph{Mathematical notation}
 Let's show that all activations sum up to $1$. We can take equation (79) for the texbook itself, and add $c$ to it:
 $$\sum_j a^L_j  = \sum_j \frac{ e^{C z^L_j}}{\sum_k e^{C z^L_k}} = 1$$
@@ -229,5 +231,19 @@ $$\forall_k z_j^L > z_k^L: \frac {\partial a^L_j}{\partial c} > 0$$
 $$\forall_k z_j^L < z_k^L: \frac {\partial a^L_j}{\partial c} < 0$$
 So, if our neuron is stronger than all others, $c$ makes it (relatively) more powerful, and if it is weaker, $c$ makes it even weaker.
 In terms of function form, this means that the larger $c$ the steeper is shift from $0$ to $1$ as $z_j$ increases.
+
+And finally, error derivation:
+$$\frac{\partial C}{\partial z^L_{j}} = - \frac{\partial C}{\partial a^L_{j}} \frac{\partial a^L_{j}}{\partial z^L_j}$$
+Using approach from previous exercises:
+$$\frac{\partial C}{\partial z^L_{j}} = - \frac{1}{a^L_j}  \frac{e^{z^L_j} \sum_{k \neq j} e^{z^L_k}}{(\sum_{k} e^{z^L_k})^2}$$
+$$\frac{\partial C}{\partial z^L_{j}} = - 1 \frac{\sum_{k \neq j} e^{z^L_k} + e^{z^L_j} - e^{z^L_j}}{ (\sum_{k} e^{z^L_k}) }$$
+$$\frac{\partial C}{\partial z^L_{j}} = - 1(1 - \frac{e^{z^L_j}}{ \sum_{k} e^{z^L_k}})$$
+$$\frac{\partial C}{\partial z^L_{j}} = (a^{L}_j - 1)$$.
+(Strange stuff here, recheck:)
+for $j$, $y_j = 1$, so we can substitue that to get:
+$$\frac{\partial C}{\partial z^L_{j}} = a^{L}_j - y_j$$.
+
+Q.E.D.
+
 
 \end{document}
