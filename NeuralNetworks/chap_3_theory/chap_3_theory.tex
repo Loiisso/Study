@@ -245,5 +245,18 @@ $$\frac{\partial C}{\partial z^L_{j}} = a^{L}_j - y_j$$.
 
 Q.E.D.
 
+\section{Artificial dataset expansion}
+The problem with arbitrarily large rotations is actually two-fold:
+1) We make training examples look like \'other\' training examples. $6$ and $9$ for example shall generate a lot of fun.
+To make that work, we shall have to use even larger set, which kinda defeats the point.
+2) Overall teaching the model extremly-rare real-life cases seems like a good way
+to waste a lot of optimization time on very small part of real world problem. It's much easier to first classify whether the dataset has been reversed, and than classify digits.
+
+\section{Asymptotic efficiency of algorithms}
+This is a large topic/question, we'll return here later. Some sources:
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3307431/
+
+
 
 \end{document}
