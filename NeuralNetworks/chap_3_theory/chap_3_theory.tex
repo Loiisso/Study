@@ -257,6 +257,21 @@ This is a large topic/question, we'll return here later. Some sources:
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3307431/
 
+\section{Initialization tricks}
+\subsection{Standart deviation estimation}
+\paragraph{Intuition}
+We are dealing with independent random variables, so this is pretty easy.
+
+\paragraph{Mathematical notation}
+$$Var(z) = \sum_j{Var(w_j) x_j^2} + Var(b)$$
+$$Var(z) = \sum_j{\frac{1}{n_{in}}x_j^2} + 1$$
+Now $n_in = 1000$, and $500$ of $1000 x_j$-s is $1$, so:
+$$Var(z) = \frac{1}{1000}500 + 1$$
+$$Var(z) = \frac{3}{2}$$
+$$\sigma(z) = \sqrt{\frac{3}{2}}$$
+
+Tada.
+
 
 
 \end{document}
