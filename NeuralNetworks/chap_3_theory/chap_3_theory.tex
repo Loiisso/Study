@@ -297,9 +297,15 @@ $$a^{L-1}_k (a^L_j - y_j) = 1(0-1):  0.5 * 0.5 * 0.1$$
 $$a^{L-1}_k (a^L_j - y_j) = 1(1-1):  0.5 * 0.5 * 0.1$$
 
 This means that in $0.75$ of the cases, value of $\frac {\partial C_0}{\partial w_{jk}} = 0$.
+In $0.25$ of the cases,  $\frac {\partial C_0}{\partial w_{jk}} = 1$ or $\frac {\partial C_0}{\partial w_{jk}} = -1$.
+Of those $1$ has $0.9$ probability, $-1$ has $0.1$ probability. So expectation is $0.25*((0.9) * 1 + 0.1 * (-1)) = 0.25 * 0.8 = 0.2$.
+This means that if the choice is random and guessing correct answer is likely to give more wrong answers than right, 
+we are trying to decrease every weigth.
 
 Another thing to consier is that $a^{L-1}_k (a^L_j - y_j)$ has a maximum, and $w$ (which is random), does not.
-Hence choice of $\lambda$ allows $|w|$ to excced $| \frac {\partial C_0}{\partial w_{jk}} |$ with any chosen probability
+Hence choice of $\lambda$ allows $|w|$ to excced $| \frac {\partial C_0}{\partial w_{jk}} |$ with any chosen probability.
 
+\subsection{Speed of decay and tailing out}
+These problems shall be solved later (current solutions ideas are rather bad)
 
 \end{document}
