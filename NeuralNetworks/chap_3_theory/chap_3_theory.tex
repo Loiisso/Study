@@ -275,35 +275,32 @@ Tada.
 \section{Regularization heuristscs}
 \subsection{First epochs dominated by weight decay}
 
-CHECK THIS AGAIN
+A note: *epochs*, as in \"do this update $n/m$ times\".
+Had been stuck here, for some time, because thought it's about one update. Smooth, I know.
 
 \paragraph{Intuition}
-Using the old weights initialization gives a very fat-tailed distribution. 
-This means large $w$ are very probable. Given that $w$ is present in weights update
-directly only in \'weight decay'\ part, the larger the weight, the faster is decay. 
-The cost function may be exotic enough to have large derivative too, but there is no reason to do so.
+The idea is to see what happens if you try to calculate several updates in a row.
+The key concept in that in order to increase weight, your prediction has to count for smth.
+If it's random (which it is, during the first steps), than update-by-derivative doesn't do anything, and weigth decay keeps working.
 \paragraph{Mathematical notation}
-To see how first epochs are dominated, let's consider the $\frac {\partial C_0}{\partial w_{jk}}$ part of the weight update.
-If we assume cross-entropy loss function and sigmoid neurons, than
-$\frac {\partial C_0}{\partial w_{jk}} = a^{L-1}_k (a^L_j - y_j)$
-Now, we assume that due to old weights initialization, activations are either $0$ or $1$, with equal probabilities.
-Also assume that $y_j = 1$ with probability of $0.1$.
-It's easy to see that half the time this value is $0$, as $a^{L-1}_k = 0$.
-If $a^{L-1}_k \neq 0$, than here are other outcomes and their corresponding probabilities
+Let's write down weights update step
+$$ w_{1} \rightarrow \left(1-\frac{\eta \lambda}{n}\right) w_{0} -\frac{\eta}{m}
+  \sum_x \frac{\partial C_x}{\partial w}$$
 
-$$a^{L-1}_k (a^L_j - y_j) = 1(0-0):  0.5 * 0.5 * 0.9$$
-$$a^{L-1}_k (a^L_j - y_j) = 1(1-0):  0.5 * 0.5 * 0.9$$
-$$a^{L-1}_k (a^L_j - y_j) = 1(0-1):  0.5 * 0.5 * 0.1$$
-$$a^{L-1}_k (a^L_j - y_j) = 1(1-1):  0.5 * 0.5 * 0.1$$
+Now, let's see what happens if we update it several times, with respect to the initial $w$:
 
-This means that in $0.75$ of the cases, value of $\frac {\partial C_0}{\partial w_{jk}} = 0$.
-In $0.25$ of the cases,  $\frac {\partial C_0}{\partial w_{jk}} = 1$ or $\frac {\partial C_0}{\partial w_{jk}} = -1$.
-Of those $1$ has $0.9$ probability, $-1$ has $0.1$ probability. So expectation is $0.25*((0.9) * 1 + 0.1 * (-1)) = 0.25 * 0.8 = 0.2$.
-This means that if the choice is random and guessing correct answer is likely to give more wrong answers than right, 
-we are trying to decrease every weigth.
+$$ w_{2} \rightarrow (1-\frac{\eta \lambda}{n})(
+(1-\frac{\eta \lambda}{n}) w_{0} -\frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{0}}
+) -\frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{1}}$$
 
-Another thing to consier is that $a^{L-1}_k (a^L_j - y_j)$ has a maximum, and $w$ (which is random), does not.
-Hence choice of $\lambda$ allows $|w|$ to excced $| \frac {\partial C_0}{\partial w_{jk}} |$ with any chosen probability.
+$$ w_{2} \rightarrow (1-\frac{\eta \lambda}{n})^{2} w_{0} - (1-\frac{\eta \lambda}{n}) \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{0}} - 
+\frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{1}}$$
+
+It's pretty easy to see that for arbitrary $i-th$ step this function is
+
+$$ w_{i} \rightarrow (1-\frac{\eta \lambda}{n})^{i} w_{0} - \sum_{j = 0:i-1} (1-\frac{\eta \lambda}{n})^{j} \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{j}}$$
+
+STOPPED HERE
 
 \subsection{Speed of decay and tailing out}
 These problems shall be solved later (current solutions ideas are rather bad)
