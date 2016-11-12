@@ -296,9 +296,14 @@ $$ w_{2} \rightarrow (1-\frac{\eta \lambda}{n})(
 $$ w_{2} \rightarrow (1-\frac{\eta \lambda}{n})^{2} w_{0} - (1-\frac{\eta \lambda}{n}) \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{0}} - 
 \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{1}}$$
 
-It's pretty easy to see that for arbitrary $i-th$ step this function is
+It's pretty easy to see that for arbitrary $N-th$ step this function is
 
-$$ w_{i} \rightarrow (1-\frac{\eta \lambda}{n})^{i} w_{0} - \sum_{j = 0:i-1} (1-\frac{\eta \lambda}{n})^{j} \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{j}}$$
+$$ w_{N+1} \rightarrow (1-\frac{\eta \lambda}{n})^{N} w_{0} - \sum_{j = 0:N-1} (1-\frac{\eta \lambda}{n})^{N-j} \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{j}}$$
+
+Now, let's see how this beauty behaves:
+$$\sum_{j = 0:N-1} (1-\frac{\eta \lambda}{n})^{N-j} \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{j}}$$
+
+Let's apply basic intuition to answer a question: how should update behave if particular weigth 
 
 STOPPED HERE
 
