@@ -279,35 +279,41 @@ A note: *epochs*, as in \"do this update $n/m$ times\".
 Had been stuck here, for some time, because thought it's about one update. Smooth, I know.
 
 \paragraph{Intuition}
-The idea is to see what happens if you try to calculate several updates in a row.
-The key concept in that in order to increase weight, your prediction has to count for smth.
-If it's random (which it is, during the first steps), than update-by-derivative doesn't do anything, and weigth decay keeps working.
+The main problem is that while logloss fixes neuron saturation in the output layer,
+all other layers still have $\sigma'(z)$ part in the $\frac{\partial C}{\partial z}$ equation.
+As hidden neurons are almost guaranteed to be saturated, $\sigma'(z)$ goes to zero.
 \paragraph{Mathematical notation}
-Let's write down weights update step
-$$ w_{1} \rightarrow \left(1-\frac{\eta \lambda}{n}\right) w_{0} -\frac{\eta}{m}
-  \sum_x \frac{\partial C_x}{\partial w}$$
 
-Now, let's see what happens if we update it several times, with respect to the initial $w$:
+A note: I'm ignoring the behavior of the output layer, as it's behavior differs considerably from other layers.
+Probabily will fill it up later.
 
-$$ w_{2} \rightarrow (1-\frac{\eta \lambda}{n})(
-(1-\frac{\eta \lambda}{n}) w_{0} -\frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{0}}
-) -\frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{1}}$$
+Let's remember update rule for hidden layers (for regularized case):
 
-$$ w_{2} \rightarrow (1-\frac{\eta \lambda}{n})^{2} w_{0} - (1-\frac{\eta \lambda}{n}) \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{0}} - 
-\frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{1}}$$
+$$\delta^l = ((W^{l+1})^T \delta^{l+1}) \sigma'(z)$$
+$$\frac{\partial C}{\partial W^l} = a^{l-1} (\delta^l)^T + \frac{\eta \lambda}{n} W^l$$
 
-It's pretty easy to see that for arbitrary $N-th$ step this function is
+As neurons are saturated, $(\delta^l)^T \rightarrow 0$, and update rule can be simplified to:
+$$W^l \rightarrow (1 - \frac{\eta \lambda}{n})W^l$$
+which means than as long as $\sigma'(z) \rightarrow 0$, only weight decay is active.
 
-$$ w_{N+1} \rightarrow (1-\frac{\eta \lambda}{n})^{N} w_{0} - \sum_{j = 0:N-1} (1-\frac{\eta \lambda}{n})^{N-j} \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{j}}$$
+\subsection{Weight decay speed}
 
-Now, let's see how this beauty behaves:
-$$\sum_{j = 0:N-1} (1-\frac{\eta \lambda}{n})^{N-j} \frac{\eta}{m} \sum_x \frac{\partial C_x}{\partial w_{j}}$$
+During the first epoch, we can assume $n/m$ updates shall happen.
+Than, if $\sigma'(z) \rightarrow 0$, only weight decay is active.
+So we can write down result of weight decay at the end of the epoch as
+$$W^l \rightarrow (1 - \frac{\eta \lambda}{n})^{n/m}W^l$$
+Now if we interpret $\eta \lambda << n$ as $n \rightarrow \infty$, than
+$$lim_{n \rightarrow \infty} (1 - \frac{\eta \lambda}{n})^{n/m}W^l = W^l exp(-\eta \lambda /m)$$
+(By classic limit rule for $(1-1/x)^{x}$).
+This is the expected update ratio.
 
-Let's apply basic intuition to answer a question: how should update behave if particular weigth 
+\subsection{Weight decay tailoff}
 
-STOPPED HERE
+A note: this particular statement seems strange. The weight decay itself is 
+$$W^l \rightarrow (1 - \frac{\eta \lambda}{n})W^l$$
+(where $n$ is number of observations) and it in no way depends on number of weights in the network.
+If number of weigths is $4$, we wouldn't call the change $\frac{\eta \lambda}{n} (1/2)$a tail-off, would we?
+I guess tail-off shoud be relative to smth, but as it's not stated why, I'll leave it at that.
 
-\subsection{Speed of decay and tailing out}
-These problems shall be solved later (current solutions ideas are rather bad)
 
 \end{document}
