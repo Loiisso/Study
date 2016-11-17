@@ -170,11 +170,14 @@ class Network(object):
             if monitor_evaluation_accuracy or early_stop_n != None: #EXERCISE MODIFICATION HERE!
                 accuracy = self.accuracy(evaluation_data)
                 evaluation_accuracy.append(accuracy)
+                #print str(evaluation_accuracy)
                 print "Accuracy on evaluation data: {} / {}".format(
                     self.accuracy(evaluation_data), n_data)
             #EXERCISE MODIFICATION START HERE
             if j + 1 > early_stop_n:
-                cost_array = np.asarray(accuracy)
+                cost_array = np.asarray(evaluation_accuracy)
+                #print cost_array
+
                 max_accuracy = cost_array.max()
                 if (max_accuracy > cost_array[-early_stop_n: ]).all():
                     print "Using early stopping rule"
