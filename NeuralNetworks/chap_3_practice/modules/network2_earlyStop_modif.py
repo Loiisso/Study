@@ -117,7 +117,7 @@ class Network(object):
 
     def SGD(self, training_data, epochs, mini_batch_size, eta,
             lmbda = 0.0,
-            eta_modif_n = None, 
+            early_stop_n = None, 
             evaluation_data=None,
             monitor_evaluation_cost=False,
             monitor_evaluation_accuracy=False,
@@ -145,7 +145,6 @@ class Network(object):
         n = len(training_data)
         evaluation_cost, evaluation_accuracy = [], []
         training_cost, training_accuracy = [], []
-        eta_origin = eta
         for j in xrange(epochs):
             random.shuffle(training_data)
             mini_batches = [
@@ -168,25 +167,23 @@ class Network(object):
                 cost = self.total_cost(evaluation_data, lmbda, convert=True)
                 evaluation_cost.append(cost)
                 print "Cost on evaluation data: {}".format(cost)
-            if monitor_evaluation_accuracy or eta_modif_n != None: #EXERCISE MODIFICATION HERE!
+            if monitor_evaluation_accuracy or early_stop_n != None: #EXERCISE MODIFICATION HERE!
                 accuracy = self.accuracy(evaluation_data)
                 evaluation_accuracy.append(accuracy)
                 #print str(evaluation_accuracy)
                 print "Accuracy on evaluation data: {} / {}".format(
                     self.accuracy(evaluation_data), n_data)
             #EXERCISE MODIFICATION START HERE
-            if j + 1 > eta_modif_n:
+            if j + 1 > early_stop_n * 2:
                 cost_array = np.asarray(evaluation_accuracy)
-                #print cost_array
-
-                max_accuracy = cost_array.max()
-                print "Best found accuracy: " + str(max_accuracy)
-                if (max_accuracy > cost_array[-eta_modif_n: ]).all():
-                    eta = eta/2
-                    print "No improvement, halving eta"
-                    if eta_origin/eta > 128:
-                        print "Reached last allowed eta decrease"
-                        break
+                prev_av_cost = cost_array[-early_stop_n * 2:-early_stop_n].mean()
+                current_av_cost = cost_array[-early_stop_n: ].mean()
+                
+                print "previous average cost: " + str(prev_av_cost)
+                print "current average cost: " + str(current_av_cost)
+                if current_av_cost > prev_av_cost:
+                    print "Using early stopping rule"
+                    break
             #EXERCISE MODIFICATION END HERE
             print
         return evaluation_cost, evaluation_accuracy, \

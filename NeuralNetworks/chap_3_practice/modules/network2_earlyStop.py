@@ -179,6 +179,7 @@ class Network(object):
                 #print cost_array
 
                 max_accuracy = cost_array.max()
+                print "Best found accuracy: " + str(max_accuracy)
                 if (max_accuracy > cost_array[-early_stop_n: ]).all():
                     print "Using early stopping rule"
                     break
