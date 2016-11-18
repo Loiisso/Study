@@ -186,17 +186,17 @@ class Network(object):
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
         # EXERCISE MODIFICATION START HERE
-        delta_nabla_w_prev = 0
-        delta_nabla_b_prev = 0
+        delta_nabla_b_prev = [np.zeros(b.shape) for b in self.biases]
+        delta_nabla_w_prev = [np.zeros(w.shape) for w in self.weights]
         # EXERCISE MODIFICATION END HERE
         for x, y in mini_batch:
-            delta_nabla_b, delta_nabla_w = self.backprop(x, y)
             # EXERCISE MODIFICATION START HERE
-            delta_nabla_w = delta_nabla_w_prev * mu + delta_nabla_w
-            delta_nabla_b = delta_nabla_b_prev * mu + delta_nabla_b
+            delta_nabla_b_grad, delta_nabla_w_grad = self.backprop(x, y)
+            delta_nabla_b = [prev * mu + current for prev, current in zip(delta_nabla_b_prev, delta_nabla_b_grad)]
+            delta_nabla_w = [prev * mu + current for prev, current in zip(delta_nabla_w_prev, delta_nabla_w_grad)]
 
-            delta_nabla_w_prev = delta_nabla_w
             delta_nabla_b_prev = delta_nabla_b
+            delta_nabla_w_prev = delta_nabla_w
             # EXERCISE MODIFICATION END HERE
             nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
             nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
