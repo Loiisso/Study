@@ -309,11 +309,14 @@ This is the expected update ratio.
 
 \subsection{Weight decay tailoff}
 
-A note: this particular statement seems strange. The weight decay itself is 
-$$W^l \rightarrow (1 - \frac{\eta \lambda}{n})W^l$$
-(where $n$ is number of observations) and it in no way depends on number of weights in the network.
-If number of weigths is $4$, we wouldn't call the change $\frac{\eta \lambda}{n} (1/2)$a tail-off, would we?
-I guess tail-off shoud be relative to smth, but as it's not stated why, I'll leave it at that.
+Weight decay will tail off (for L2) once the regularization component is close to constant (small one).
+Regularization component for mini-batch update is:
+$$\frac{\eta \lambda}{2m} \sum_w w^2$$
+It's easy to see that if we substitute $w = n^{-1/2}$, the value of L2 component shall be
+$$\frac{\eta \lambda}{2m} 1$$.
+The intuition is quite simple - for quadratic function derivative is linear, so close to zero the derivative starts gettting closer to zero.
+The concept of \'tailing-off\' is rather relative, but this particular value $n^{-1/2}$ 
+is where L2 regularization becomes idependent of the number of weights.
 
 
 \subsection{Relation between tahn and sigmoid neurons}
