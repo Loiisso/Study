@@ -316,4 +316,12 @@ If number of weigths is $4$, we wouldn't call the change $\frac{\eta \lambda}{n}
 I guess tail-off shoud be relative to smth, but as it's not stated why, I'll leave it at that.
 
 
+\subsection{Relation between tahn and sigmoid neurons}
+
+$$\frac{1}{2} (1 + \frac{e^{-z/2} + e^{z/2}}{e^{z/2} + e^{-z/2}}) == \frac{1}{1 + e^{-z}}$$
+$$\frac{1}{2} (\frac{e^{-z/2} + e^{-z/2} + e^{-z/2} - e^{z/2}}{e^{z/2} + e^{-z/2}}) == \frac{1}{1 + e^{-z}}$$
+$$\frac{e^{-z/2}}{e^{z/2} + e^{-z/2}} == \frac{1}{1 + e^{-z}}$$
+$$\frac{1}{1 + e^{-z}} == \frac{1}{1 + e^{-z}}$$
+Q.E.D.
+
 \end{document}
