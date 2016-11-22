@@ -22,3 +22,46 @@
 To prove that we can generate step-function in any direction, we will show that we can
 generate lines on ${x, y}$ plane such that on the one side of the line value of activation is close to $1$
 and on the other it's close to $0$. 
+\paragraph{Mathematical notation}
+Let's define line on ${x, y}$ plane as a line:
+$$y = C + kx$$
+where $C$ and $k$ are real numbers.
+What we want to prove if this:
+$$\forall \delta \in (0, 0.5), \epsilon > 0 , C \in R,  k \in R: \exists w_1, w_2$$
+$$(1) \frac{1}{1 + exp(-(w_1x + w_2(C + kx + \epsilon) + b))} > 1 - \delta$$
+$$(2) \frac{1}{1 + exp(-(w_1x + w_2(C + kx - \epsilon) + b))} < \delta$$
+
+These statements essentially say this:
+We can always find weights $w_1$ and $w_2$ as to generate a step along line $y = C + kx$.
+$delta$ and $epsilon$ are there to describe what a step is.
+
+Note that $<1 and >0$ conditions are satisfied due to the nature of activation function
+
+Let's simplify $(1)$ first:
+
+$$exp(-(w_1x + w_2(C + kx + \epsilon) + b)) < \frac{1}{1 - \delta} - 1$$
+$$(w_1x + w_2(C + kx + \epsilon) + b) > -ln(\frac{1}{1 - \delta} - 1)$$
+$$(w_1x + w_2(C + kx + \epsilon) + b) > ln(\frac{1 - \delta}{\delta})$$
+
+Now let's simplify $(2)$:
+
+$$exp(-(w_1x + w_2(C + kx - \epsilon) + b)) > \frac{1}{\delta} - 1$$
+$$(w_1x + w_2(C + kx - \epsilon) + b) < -ln(\frac{1}{\delta} - 1)$$
+$$(w_1x + w_2(C + kx - \epsilon) + b) < ln(\frac{\delta}{1 - \delta})$$
+
+It's easy to see that right sides of $(1)$ and $(2)$ are negatives of each other.
+Let's set $L = ln(\frac{1 - \delta}{\delta})$.  Note that $L$ is strictly positive, due to our condition on  $\delta$.
+Putting that into our inequalities, we get:
+$$(1) (w_1x + w_2(C + kx + \epsilon) + b) > L$$
+$$(2) (w_1x + w_2(C + kx - \epsilon) + b) < -L$$
+
+Combining those, we get:
+$$w_2 > \frac{2L + b}{2 \epsilon}$$
+
+As you can see, the result does not depend on $C$ and $k$, and we can always find $w_2$ that would satisfy this condition.
+So we have proven that there exists such a $w_2$ that both conditions $(1)$ and $(2)$ will be satisfied.
+Q.E.D.
+
+
+
+\end{document}
