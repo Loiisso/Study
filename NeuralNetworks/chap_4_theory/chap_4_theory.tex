@@ -23,47 +23,26 @@ TODO: use orthogonal $\epsilon$, not just $y$
 
 \paragraph{Intuition}
 To prove that we can generate step-function in any direction, we will show that we can
-generate lines on ${x, y}$ plane such that on the one side of the line value of activation is close to $1$
-and on the other it's close to $0$. 
+generate steps orthogonal to ${x_1, x_2, ..., x_n}$ plane such that on the one side of the plane value of activation is close to $1$
+and on the other it's close to $0$. For $2$ variables ($x$, $y$), this translates into a ${x, y}$ line, on the one side of which $\sigma(z)$
+is $1$, and on the other it's $0$.
 \paragraph{Mathematical notation}
-Let's define line on ${x, y}$ plane as a line:
-$$y = C + kx$$
-where $C$ and $k$ are real numbers.
-What we want to prove if this:
-$$\forall \delta \in (0, 0.5), \epsilon > 0 , C \in R,  k \in R: \exists w_1, w_2$$
-$$(1) \frac{1}{1 + exp(-(w_1x + w_2(C + kx + \epsilon) + b))} > 1 - \delta$$
-$$(2) \frac{1}{1 + exp(-(w_1x + w_2(C + kx - \epsilon) + b))} < \delta$$
+Let's define ${x_1, x_2, ..., x_n}$ as $X$. We shall take arbitrary vector of coefficients $K = {k_1, k_2, ..., k_n}$.
+Than our arbitrary plane can be written as $K \odot X = C$. This means that we have $n-1$ free variables, and one that is a linear combination of them.
+$$x_j = C/k_j + \frac{<K_{-j} , X_{-j}>}{k_j}$$
+where $K_{-j} , X_{-j}$ refer to vectors $K$ and $X$ withouth $j$-th element.
 
-These statements essentially say this:
-We can always find weights $w_1$ and $w_2$ as to generate a step along line $y = C + kx$.
-$delta$ and $epsilon$ are there to describe what a step is.
-
-Note that $<1 and >0$ conditions are satisfied due to the nature of activation function
-
-Let's simplify $(1)$ first:
-
-$$exp(-(w_1x + w_2(C + kx + \epsilon) + b)) < \frac{1}{1 - \delta} - 1$$
-$$(w_1x + w_2(C + kx + \epsilon) + b) > -ln(\frac{1}{1 - \delta} - 1)$$
-$$(w_1x + w_2(C + kx + \epsilon) + b) > ln(\frac{1 - \delta}{\delta})$$
-
-Now let's simplify $(2)$:
-
-$$exp(-(w_1x + w_2(C + kx - \epsilon) + b)) > \frac{1}{\delta} - 1$$
-$$(w_1x + w_2(C + kx - \epsilon) + b) < -ln(\frac{1}{\delta} - 1)$$
-$$(w_1x + w_2(C + kx - \epsilon) + b) < ln(\frac{\delta}{1 - \delta})$$
-
-It's easy to see that right sides of $(1)$ and $(2)$ are negatives of each other.
-Let's set $L = ln(\frac{1 - \delta}{\delta})$.  Note that $L$ is strictly positive, due to our condition on  $\delta$.
-Putting that into our inequalities, we get:
-$$(1) (w_1x + w_2(C + kx + \epsilon) + b) > L$$
-$$(2) (w_1x + w_2(C + kx - \epsilon) + b) < -L$$
-
-Combining those, we get:
-$$w_2 > \frac{2L + b}{2 \epsilon}$$
-
-As you can see, the result does not depend on $C$ and $k$, and we can always find $w_2$ that would satisfy this condition.
-So we have proven that there exists such a $w_2$ that both conditions $(1)$ and $(2)$ will be satisfied.
-Q.E.D.
+Now, what's a step outside this plane?
+Well, it's the parralel plane (don't call me Sirely):
+$$K \odot X = C + \epsilon$$
+where $\epsilon$ is the size of our step.
+Note that this translates into
+$$x_j = \frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}$$
+This allows us to put all those coefficents into activation function.
+For the statement to be true, we have to prove that these two inequalities hold:
+$$\forall \delta \in (0, 0.5), \epsilon > 0 , C \in R,  k \in R: \exists W:$$
+$$(1) \frac{1}{1 + exp(- \sum_{i \neq j}w_ix_i + w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j})} > 1-\delta$$
+$$(2) \frac{1}{1 + exp(- \sum_{i \neq j}w_ix_i + w_j (\frac{C - \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j})} < \delta$$
 
 
 
