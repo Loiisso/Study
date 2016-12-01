@@ -15,11 +15,7 @@
 
 
 \section{Proof of universal computability}
-\subsection{Solve the problem for 2 variables}
-
-\subsubsection{Step wise function in any direction}
-
-TODO: use orthogonal $\epsilon$, not just $y$
+\subsection{Step wise function in any direction}
 
 \paragraph{Intuition}
 To prove that we can generate step-function in any direction, we will show that we can
@@ -40,9 +36,41 @@ Note that this translates into
 $$x_j = \frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}$$
 This allows us to put all those coefficents into activation function.
 For the statement to be true, we have to prove that these two inequalities hold:
-$$\forall \delta \in (0, 0.5), \epsilon > 0 , C \in R,  k \in R: \exists W:$$
-$$(1) \frac{1}{1 + exp(- \sum_{i \neq j}w_ix_i + w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j})} > 1-\delta$$
-$$(2) \frac{1}{1 + exp(- \sum_{i \neq j}w_ix_i + w_j (\frac{C - \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j})} < \delta$$
+$$\forall \delta \in (0, 0.5), \epsilon > 0 , C \in R,  K \in R: \exists W:$$
+$$(1) \frac{1}{1 + exp(- \sum_{i \neq j}w_ix_i - w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j})} > 1-\delta$$
+$$(2) \frac{1}{1 + exp(- \sum_{i \neq j}w_ix_i - w_j (\frac{C - \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j})} < \delta$$
+
+Let's simplify (example for $(1)$):
+$$1 + exp(- \sum_{i \neq j}w_ix_i - w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) < 1-\delta$$
+$$1 + exp(- \sum_{i \neq j}w_ix_i - w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) < \frac{1}{1-\delta}$$
+$$exp(- \sum_{i \neq j}w_ix_i - w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) < \frac{\delta}{1-\delta}$$
+$$- \sum_{i \neq j}w_ix_i - w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) < ln(\frac{\delta}{1-\delta})$$
+$$\sum_{i \neq j}w_ix_i + w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) > ln(\frac{\delta}{1-\delta})$$
+
+Applying the same for (2) we get:
+$$\sum_{i \neq j}w_ix_i + w_j (\frac{C - \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) < ln(\frac{1-\delta}{\delta})$$
+
+Let's define $ln(\frac{\delta}{1-\delta}) = A$
+Than our inequalities transform into:
+$$(1)\sum_{i \neq j}w_ix_i + w_j (\frac{C + \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) > A $$
+$$(2)\sum_{i \neq j}w_ix_i + w_j (\frac{C - \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) < -A $$
+
+$$(2) - \sum_{i \neq j}w_ix_i - w_j (\frac{C - \epsilon}{k_j} + \frac{<K_{-j} , X_{-j}>}{k_j}) > A $$
+Combining these two, we get:
+$$ w_j\epsilon/k_j > 2A$$
+$$ w_j > A k_j/\epsilon$$
+This inequality states that for any choice of $\{\delta, \epsilon, K, C\}$ we can always find a weight $W$ to satisfy conditions of our step function.
+Q.E.D.
+
+\subsection{Combine multiple steps into a circle}
+\paragraph{Intuition}
+The idea is well known - use enough straight lines at small angles to each other, get a circle.
+In general sense - get enough linear planes (don't call me Shirley), get a hypersphere.
+
+\paragraph{Mathematical notation}
+STOPPED HERE (but that's not important right now)
+
+
 
 
 
