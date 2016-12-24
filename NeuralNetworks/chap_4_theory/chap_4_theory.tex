@@ -70,7 +70,7 @@ In general sense - get enough linear planes (don't call me Shirley), get a hyper
 \paragraph{Mathematical notation}
 None needed, nothing to prove yet
 
-\subsection{Prove of several towers}
+\subsection{Proof of several towers}
 \paragraph{Intuition}
 We can build many towers, the trick is to make them so that we can manipulate their height.
 How to achieve this? By using window of opportunity between bias and default tower height.
@@ -90,8 +90,26 @@ $$\sigma(0.5 h_i T_i) \odot f(x) = T'$$
 where $h_i$ is a known constant. It's obivious there is a solution for any $T'$.
 A note: we didn't we the *tower shift* trick suggested by author, might need some thinking.
 
+\subsection{Proof for rectified linear unit}
+\paragraph{Intuition}
+It's easy to see why RLU doesn't satisfy the universality conditions - it's not well defined:
+$\lim_{z \rightarrow \infty} s(z) \rightarrow \infty$.
+Yet there is a step, it's just not ending after step. So we need to find a way to combine several RLU's into a step.
 
+The proper way to do it is this:
 
+1) Take one RLU, turn it's linear coefficient into lava (use whatever bias you want)
+
+2) Take another RLU, with the negavitve lava coeffcicent, and shifted and negative bias. 
+
+3) Sum them up
+
+This will give you a zone where one unit is active, another is not. This zone goes up to a constant difference between to RLU's, 
+effectively giving you a step function.
+After that - you know what to do). 
+
+So to summarize - we need one layer of [pair/triple..]wise RLU's, next one to turn them into stepwise functions, and the final one to generate towers.
+The only difference from well-defined neurons is neccesity of using combinations of RLU's to generate step functions.
 
 
 
