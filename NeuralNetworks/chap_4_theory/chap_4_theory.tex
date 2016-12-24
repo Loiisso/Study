@@ -64,11 +64,32 @@ Q.E.D.
 
 \subsection{Combine multiple steps into a circle}
 \paragraph{Intuition}
-The idea is well known - use enough straight lines at small angles to each other, get a circle.
+The idea is simple - use enough straight lines at small angles to each other, get a circle.
 In general sense - get enough linear planes (don't call me Shirley), get a hypersphere.
 
 \paragraph{Mathematical notation}
-STOPPED HERE (but that's not important right now)
+None needed, nothing to prove yet
+
+\subsection{Prove of several towers}
+\paragraph{Intuition}
+We can build many towers, the trick is to make them so that we can manipulate their height.
+How to achieve this? By using window of opportunity between bias and default tower height.
+This way our tower sticks out, yet is zero where we want it to be zero.
+
+\paragraph{Mathematical notation}
+Let's assume we used $k$ step functions to make an approximate hypersphere, and we did it for $m$ towers.
+That gives us weighted output from hidden layer in the form:
+$$z = \sum_i^m h_i + (k-0.5)h$$
+where $h_i = <w_i, x_i>$, being combination of step functions to generate the particular activated tower.
+Now, what we want to achieve is to have towers of different height.
+That can be done with adding a new multiplier to each $h_i$:
+$$z = \sum_i^m T_i h_i + (k-0.5)h$$
+where $T_i$ is our tool for tower height regulation. 
+Let's say we want the tower height to be $T'$. Than we have to solve this equation for $T_i$
+$$\sigma(0.5 h_i T_i) \odot f(x) = T'$$
+where $h_i$ is a known constant. It's obivious there is a solution for any $T'$.
+A note: we didn't we the *tower shift* trick suggested by author, might need some thinking.
+
 
 
 
