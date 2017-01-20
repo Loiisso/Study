@@ -70,6 +70,9 @@ In general sense - get enough linear planes (don't call me Shirley), get a hyper
 \paragraph{Mathematical notation}
 None needed, nothing to prove yet
 
+
+
+STOP (WORK IN PROGRESS, PARTICULAR IDEA SUCKS)
 \subsection{Proof of several towers}
 \paragraph{Intuition}
 We can build many towers, the trick is to make them so that we can manipulate their height.
@@ -89,6 +92,8 @@ Let's say we want the tower height to be $T'$. Than we have to solve this equati
 $$\sigma(0.5 h_i T_i) \odot f(x) = T'$$
 where $h_i$ is a known constant. It's obivious there is a solution for any $T'$.
 A note: we didn't we the *tower shift* trick suggested by author, might need some thinking.
+
+END (WORK IN PROGRESS, PARTICULAR IDEA SUCKS)
 
 \subsection{Proof for rectified linear unit}
 \paragraph{Intuition}
@@ -111,6 +116,20 @@ After that - you know what to do).
 So to summarize - we need one layer of [pair/triple..]wise RLU's, next one to turn them into stepwise functions, and the final one to generate towers.
 The only difference from well-defined neurons is neccesity of using combinations of RLU's to generate step functions.
 
+No math notation is needed.
+
+\subsection{Proof for linear unit}
+\paragraph{Intuition}
+It's easy to see why LU doesn't satisfy the universality conditions - it's not well defined:
+$\lim_{z \rightarrow \infty} s(z) \rightarrow \infty$.
+$\lim_{z \rightarrow -\infty} s(z) \rightarrow -\infty$.
+
+The problem is simple: as neurons are activated no matter the point, we have to deal with 
+essentially a linear combination of hyperplanes (lines for 2d case). 
+And for any number of dimensions, sum of planes either goes up, or goes down, or stays constant. 
+There is no way to create a step function.
+
+No math notation is needed.
 
 
 \end{document}
