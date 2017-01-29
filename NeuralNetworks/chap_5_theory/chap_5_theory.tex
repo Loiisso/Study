@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Chapter theory 5 solution}
+\date{2016-09-27}
+\author{Artem Puzanov}
+
+
+\begin{document}
+
+\maketitle
+\pagenumbering{gobble}
+\newpage
+\pagenumbering{arabic}
+
+
+\section{Unstable gradient for simple networks}
+\subsection{Futility of different activation value}
+\paragraph{Intuition}
+The core problem of vanishing/exploding gradient is not value per se, but chain rule. 
+Any consistent increasing/decreasing effect is bound to become a problem if the chain is long enough.
+Some combinations of weight initialization and activation functions might be able to postpone the problem.
+The longer the chain, the harder it will be to keep this balance though.
+
+No mathematical notation needed
+
+\subsection{Numerical bounds of weighted derivative}
+\paragraph{Intuition}
+Nothing hard here, just old tricks
+\paragraph{Mathematical notation}
+
+We want to prove that:
+$$|w\sigma'(wa+b)| > 1$$
+if $|w|> 4$. To do that, let's remember that $\sigma'(z) = \sigma(z)(1 - \sigma(z))$.
+Maximum value for $x(1-x)$ is $0.25$. So 
+$$|w 0.25| > 1$$
+For that to be true, $|w| > 4$.
+
+\subsection{Activation bounds}
+\paragraph{Intuition}
+Again, nothing interesting
+\paragraph{Mathematical notation}
+Using derivative for $\sigma$:
+$$\sigma'(z) = \frac{e^(-wa-b)}{1 + e^{-wa-b}}$$
+Setting $e^{-wa-b} = x$, we get:
+$$w \frac{x}{1-x} >= 1$$
+Solving that for $x$ and assuming $w > 4$ we get:
+$$\frac{(|w|-2)-\sqrt{w^2-4|w|}}{2} \leq x \leq \frac{(|w|-2)+\sqrt{w^2-4|w|}}{2}$$
+Using $e^{-wa-b} = x$, and making some changes to suit the answer better:
+$$\frac{|w|\left(1-\sqrt{1-4/|w|}\right)}{2}-1 \leq e^{-wa-b} \leq \frac{|w|\left(1+\sqrt{1-4/|w|}\right)}{2}-1$$
+Solving for $a$:
+$$\frac{1}{|w|}\ln\left(\frac{|w|\left(1-\sqrt{1-4/|w|}\right)}{2}-1\right) - \frac{b}{|w|}\leq a \leq \frac{1}{|w|}\ln\left(\frac{|w|\left(1+\sqrt{1-4/|w|}\right)}{2}-1\right)-\frac{b}{|w|}$$
+
+Taking a difference between the larger nad the smaller value (and simplyfing again) gives us the desired interval:
+$$\frac{2}{|w|} \ln{\left(\frac{|w|(1+\sqrt{1-4/|w|})}{2}-1\right)}$$
+
+
+\end{document}
