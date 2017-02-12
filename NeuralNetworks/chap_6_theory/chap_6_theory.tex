@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Chapter theory 5 solution}
+\date{2016-09-27}
+\author{Artem Puzanov}
+
+
+\begin{document}
+
+\maketitle
+\pagenumbering{gobble}
+\newpage
+\pagenumbering{arabic}
+
+
+\section{Backpropagation for convolutinal networks}
+\paragraph{Intuition}
+Usual layers require no re-definition.
+The only potentially interesting ones are the ones that are either connected to the layers of new type,
+or layers of the new type themselves.
+Let's go backwards from the final layer:
+
+Max-pooling - Fully connected
+This connection is updated as usual. Fully connected layer updates weights for all neurons from each feature map, no change here.
+
+Max-pooling $\delta$: no changes here. For each $\delta$ is connected only to some neurons, but that changes nothing in terms of equations.
+Max-pooling $b$: doesn't exist (according to the textbook definition)
+Max-pooling $w$: doesn't exist (there is no weights, only (the force) maximum function)
+
+Convolution layer is the interesting part of the problem:
+
+Certain neurons in convolution layer are switched on/off in the next layer, in a discrete way. 
+A direct consequence of this is that they are not updated unless they were on.
+We can implement that either by nullifying weights in conv-to-maxpool matrix, or nullyfing non-activated neurons (and therefore their derivatives). It seems the second approach is more computationally sound.
+
+Another new thing is shared weigths and biases. 
+A derivative of shared weight is a sum of individual neuron's derivatives.
+They all have different $\delta$, but it all goes to the same parameter.
+Same is true for bias
+
+Each convolution/max-pooling layer is optimized separately ofc. 
+Our equations are for one such layer, but that doesn't lead to a loss of generality.
+
+
+\paragraph{Mathematical notation}
+Here are basic backpropagation equations:
+$$\delta^L = {\sum}'(z^L)\nabla_aC = \nabla_aC\odot\sigma'(z^L)$$
+$$\delta^l = (w^{l+1})^{T} \delta^{l+1}\odot\sigma'(z^l)$$
+$$\frac{\partial C}{\partial b_i} = \delta^l_i$$
+$$\frac{\partial C}{\partial w_{ij}} = \delta_i a^{l-1}_{j}$$
+
+For a (single) maxpool layer, delta equation stays the same:
+$$\delta^{l}_{maxpool} = (w^{l+1})^{T} \delta^{l+1}\odot\sigma'(z^l)$$
+Equations for $b$ and $w$ are not needed (the function is just maximum).
+
+For a (single) convolution layer, delta equation is modified slightly:
+$$\delta^{l}_{conv} = (w^{l+1})^{T} \delta^{l+1}\odot(\sigma'(z^l)\odot[ismax(z^l)])$$
+$w^{l+1}$ matrix consists of $1$ and $0$, and stays constant.
+where $[]$ is an indicator function, and $ismax$ is a function that determines whether particular
+neuron was maximum in it's pool.
+
+Shared bias equation becomes:
+$$\frac{\partial C}{\partial b} = \sum_i \delta^l_i$$
+And shared weight:
+$$\frac{\partial C}{\partial w} = \sum_i \delta^l_i a^{l-1}_{i}$$
+where $i$ is an input index.
+
+
+
+
+\end{document}
